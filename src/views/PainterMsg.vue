@@ -1,14 +1,18 @@
 <template>
   <div class="component">
-    <div class="leftCom"></div>
-    <div class="rightCom">right</div>
+    <div class="leftCom"><InformationLeftCom /></div>
+    <div class="rightCom"><InformationRightCom /></div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
+import InformationLeftCom from "@/components/personalMsg/InformationLeftCom/index.vue";
+import InformationRightCom from "@/components/personalMsg/InformationRightCom/index.vue";
 @Component({
-  components: {},
+  components: {
+    InformationLeftCom,
+    InformationRightCom,
+  },
 })
 export default class PainterMsg extends Vue {}
 </script>
@@ -17,10 +21,15 @@ export default class PainterMsg extends Vue {}
   display: flex;
 }
 .leftCom {
-  flex: 3;
-  margin: 0 5%;
+  flex: 2.5;
+  margin: 0 2%;
+  background-color: #fff;
+  height: 400px;
+  border-radius: 10px;
+  padding: 20px;
 }
 .rightCom {
-  flex: 7;
+  flex: 7.5;
+  padding: 20px;
 }
 </style>

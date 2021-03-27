@@ -1,18 +1,14 @@
 <template>
-    <div  class='component'></div>
+  <div class="component">contributingOrder</div>
 </template>
-<script>
-
-import { Component, Vue } from 'vue-property-decorator';
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-components: {},
+  components: {},
 })
-export default class Schedult extends Vue{
-
-}
+export default class Schedult extends Vue {}
 </script>
 
 <style lang='less' scoped>
-
 </style>

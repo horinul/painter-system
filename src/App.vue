@@ -10,9 +10,9 @@
     </el-container>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import MainPage from "@/views/MainPage";
+import MainPage from "@/views/MainPage.vue";
 @Component({
   components: {
     MainPage,
@@ -30,7 +30,7 @@ export default class App extends Vue {}
   line-height: 60px;
 }
 .el-main {
-  background-color: #fff;
+  background-color: #f0f8ff;
   color: #333;
   text-align: center;
   height: 600px;

@@ -1,7 +1,7 @@
 <template>
-    <div  class='component'></div>
+    <div  class='component'>unjected</div>
 </template>
-<script>
+<script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator';
 

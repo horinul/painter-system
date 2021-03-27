@@ -31,6 +31,7 @@ const routes: RouteConfig[] = [
         path: '/myOrder',
         name: 'myOrder',
         component: MyOrder,
+        redirect: '/contributingOrder',
         children: [
           {
             path: '/contributingOrder',
@@ -38,12 +39,12 @@ const routes: RouteConfig[] = [
             component: ContributingOrder,
           },
           {
-            path: 'settledOrder',
+            path: '/settledOrder',
             name: 'settledOrder',
             component: SettledOrder,
           },
           {
-            path: 'undoneOrder',
+            path: '/undoneOrder',
             name: 'undoneOrder',
             component: UndoneOrder,
           },
