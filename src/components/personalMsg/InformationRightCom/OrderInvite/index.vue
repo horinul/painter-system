@@ -2,13 +2,13 @@
   <!-- 企划邀请com -->
   <div class="component">
     <el-menu
-      default-active="0"
+      :default-active="activeRouter"
       class="el-menu-demo"
       mode="horizontal"
-      @select="changeRoute"
+      :router="true"
     >
-      <el-menu-item index="0">未处理</el-menu-item>
-      <el-menu-item index="1">已拒绝</el-menu-item>
+      <el-menu-item index="untreated">未处理</el-menu-item>
+      <el-menu-item index="rejected">已拒绝</el-menu-item>
     </el-menu>
     <router-view></router-view>
   </div>
@@ -19,7 +19,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class Schedult extends Vue {
+export default class OrderInvite extends Vue {
   private menuList = [
     {
       label: "untreated",
@@ -30,13 +30,16 @@ export default class Schedult extends Vue {
       name: "已拒绝",
     },
   ];
-  private changeRoute(key) {
-    this.$router.push("/" + this.menuList[key].label);
+  get activeRouter() {
+    return this.$route.name || "";
   }
 }
 </script>
 
 <style lang='less' scoped>
+.el-menu {
+  border-radius: 4px;
+}
 .el-menu--horizontal > .el-menu-item {
   float: right;
 }

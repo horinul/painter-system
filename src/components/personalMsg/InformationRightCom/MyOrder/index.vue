@@ -2,14 +2,14 @@
   <!-- 我的企划com -->
   <div class="component">
     <el-menu
-      default-active="0"
+      :default-active="activeRouter"
       class="el-menu-demo"
       mode="horizontal"
-      @select="changeRoute"
+      :router="true"
     >
-      <el-menu-item index="0">应稿中</el-menu-item>
-      <el-menu-item index="1">未完成</el-menu-item>
-      <el-menu-item index="2">已结算</el-menu-item>
+      <el-menu-item index="contributingOrder">应稿中</el-menu-item>
+      <el-menu-item index="undoneOrder">未完成</el-menu-item>
+      <el-menu-item index="settledOrder">已结算</el-menu-item>
     </el-menu>
     <router-view></router-view>
   </div>
@@ -20,7 +20,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class Schedult extends Vue {
+export default class MyOrder extends Vue {
   private menuList = [
     {
       label: "contributingOrder",
@@ -35,8 +35,8 @@ export default class Schedult extends Vue {
       name: "已结算",
     },
   ];
-  private changeRoute(key) {
-    this.$router.push("/" + this.menuList[key].label);
+  get activeRouter() {
+    return this.$route.name || "";
   }
 }
 </script>

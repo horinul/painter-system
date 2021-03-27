@@ -21,13 +21,17 @@
         <span class="linkText">{{ item.name }}</span>
       </div>
     </div>
+    <el-divider></el-divider>
+    <schedule />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
+import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
 @Component({
-  components: {},
+  components: {
+    schedule,
+  },
 })
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";

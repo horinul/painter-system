@@ -30,6 +30,6 @@ export default class PainterMsg extends Vue {}
 }
 .rightCom {
   flex: 7.5;
-  padding: 20px;
+  padding: 0 20px;
 }
 </style>
