@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import MainPage from '../views/MainPage.vue';
-import PainterMsg from '../views/PainterMsg.vue';
+import PersonalMsg from '../views/PersonalMsg.vue';
+import OrderDetail from '../views/OrderDetail.vue';
 import MyOrder from '../components/personalMsg/InformationRightCom/MyOrder/index.vue';
 import ContributingOrder from '../components/personalMsg/InformationRightCom/MyOrder/ContributingOrder/index.vue';
 import SettledOrder from '../components/personalMsg/InformationRightCom/MyOrder/SettledOrder/index.vue';
@@ -22,9 +23,9 @@ const routes: RouteConfig[] = [
     component: MainPage,
   },
   {
-    path: '/painterMsg',
-    name: 'PainterMsg',
-    component: PainterMsg,
+    path: '/personalMsg',
+    name: 'PersonalMsg',
+    component: PersonalMsg,
     redirect: '/myOrder',
     children: [
       {
@@ -70,6 +71,12 @@ const routes: RouteConfig[] = [
       },
     ],
   },
+  {
+    path: '/orderDetail',
+    name: 'OrderDetail',
+    component: OrderDetail,
+  }
+
 ];
 
 const router = new VueRouter({

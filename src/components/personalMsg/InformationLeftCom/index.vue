@@ -10,11 +10,6 @@
       <THTag class="identifyTag" :showClose="false" v-if="!isUser">{{
         identifyTag
       }}</THTag>
-      <span
-        style="margin-left: 20px; cursor: pointer"
-        @click="testChangeIdentify"
-        >切换(test)</span
-      >
     </div>
     <el-divider></el-divider>
     <div class="msgLink">
@@ -37,7 +32,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
 import { identify } from "@/enums/allUserEnums";
 @Component({
@@ -48,35 +43,34 @@ import { identify } from "@/enums/allUserEnums";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.printer;
-  get linkObj() {
-    return {
-      myOrder: {
-        label: "myOrder",
-        name: "我的企划",
-        src: require("../../../static/myOrder.png"),
-        selected: false,
-        children: ["contributingOrder", "settledOrder", "undoneOrder"],
-        show: true,
-      },
-      orderInvite: {
-        label: "orderInvite",
-        name: "企划邀请",
-        src: require("../../../static/orderInvite.png"),
-        selected: false,
-        children: ["untreated", "rejected"],
-        show: !this.isUser,
-      },
-      msgList: {
-        label: "msgList",
-        name: "消息列表",
-        src: require("../../../static/msgList.png"),
-        selected: false,
-        children: [],
-        show: true,
-      },
-    };
-  }
+  private identify: identify = identify.user;
+
+  private linkObj = {
+    myOrder: {
+      label: "myOrder",
+      name: "我的企划",
+      src: require("../../../static/myOrder.png"),
+      selected: false,
+      children: ["contributingOrder", "settledOrder", "undoneOrder"],
+      show: true,
+    },
+    orderInvite: {
+      label: "orderInvite",
+      name: "企划邀请(user不显示）",
+      src: require("../../../static/orderInvite.png"),
+      selected: false,
+      children: ["untreated", "rejected"],
+      show: !this.isUser,
+    },
+    msgList: {
+      label: "msgList",
+      name: "消息列表",
+      src: require("../../../static/msgList.png"),
+      selected: false,
+      children: [],
+      show: true,
+    },
+  };
 
   created() {
     for (let item in this.linkObj) {
@@ -84,12 +78,6 @@ export default class InformationLeftCom extends Vue {
         this.linkObj[item].selected = true;
       }
     }
-  }
-  private testChangeIdentify() {
-    this.identifyText =
-      this.identifyText === "我是画师" ? "我是顾客" : "我是画师";
-    this.identify =
-      this.identify === identify.user ? identify.printer : identify.user;
   }
   get isUser() {
     return this.identify === identify.user;

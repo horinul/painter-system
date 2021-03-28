@@ -14,22 +14,22 @@ import InformationRightCom from "@/components/personalMsg/InformationRightCom/in
     InformationRightCom,
   },
 })
-export default class PainterMsg extends Vue {}
+export default class PersonalMsg extends Vue {}
 </script>
 <style lang="less" scoped>
 .component {
   display: flex;
-}
-.leftCom {
-  flex: 2.5;
-  margin: 0 2%;
-  background-color: #fff;
-  height: 400px;
-  border-radius: 10px;
-  padding: 20px;
-}
-.rightCom {
-  flex: 7.5;
-  padding: 0 20px;
+  .leftCom {
+    flex: 2.5;
+    margin: 0 2%;
+    background-color: #fff;
+    height: 400px;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .rightCom {
+    flex: 7.5;
+    padding: 0 20px;
+  }
 }
 </style>

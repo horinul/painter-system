@@ -57,7 +57,7 @@
             <el-rate v-model="customer.rate" :disabled="true"></el-rate>
           </div>
         </div>
-        <div class="rightCardBody" v-if="isUndoneOrder">
+        <div class="rightCardBody" v-if="!isContributing">
           <!-- upload action="https://jsonplaceholder.typicode.com/posts/" 发起请求的地址 -->
           <el-upload
             action="null"
@@ -198,7 +198,7 @@ export default class OrderCard extends Vue {
         .avatar-uploader-icon {
           font-size: 28px;
           color: #8c939d;
-          width: 200px;
+          width: 240px;
           height: 150px;
           line-height: 150px;
           text-align: center;
@@ -206,7 +206,8 @@ export default class OrderCard extends Vue {
           border-radius: 5px;
         }
         .avatar {
-          width: 200px;
+          border-radius: 6px;
+          width: 240px;
           height: 150px;
           display: block;
         }

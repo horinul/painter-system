@@ -18,5 +18,12 @@ export interface myOrder {
   endTime: string,
   currentStatus: myOrderCurrStatus,
   rate: number,
-  imageUrl: string
+  imageUrl: string,
+  signUpPrinterList: Array<printerMsg>,
+  selectPrinter: printerMsg
+}
+export interface printerMsg {
+  name: string,
+  id: string,
+  avatar: string
 }

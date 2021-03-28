@@ -2,7 +2,8 @@
   <div id="app">
     <el-container>
       <el-header>
-        <router-link to="/painterMsg">painterMsg</router-link>
+        <router-link to="/personalMsg">personalMsg</router-link>
+        <router-link to="/orderDetail" style="margin-left:20px;">orderDetail</router-link>
         <div>head</div>
       </el-header>
       <el-main><router-view></router-view></el-main>

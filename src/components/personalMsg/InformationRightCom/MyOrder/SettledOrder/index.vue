@@ -29,6 +29,7 @@ export default class settledOrder extends Vue {
       deadline: "2020-2-2",
       endTime: "2020-2-3",
       currentStatus: myOrderCurrStatus.finish,
+      imageUrl:"https://i0.hdslb.com/bfs/album/39c8ca474cd7fa25ac7fb883fab6857f8bca55ab.jpg@320w_161h_1e_1c.webp",
       rate: 0,
     },
     {
@@ -41,6 +42,7 @@ export default class settledOrder extends Vue {
       deadline: "2020-2-2",
       endTime: "2020-2-3",
       currentStatus: myOrderCurrStatus.finish,
+      imageUrl:"https://i0.hdslb.com/bfs/album/39c8ca474cd7fa25ac7fb883fab6857f8bca55ab.jpg@320w_161h_1e_1c.webp",
       rate: 4,
     },
     {
@@ -53,6 +55,7 @@ export default class settledOrder extends Vue {
       deadline: "2020-2-2",
       endTime: "2020-2-3",
       currentStatus: myOrderCurrStatus.finish,
+      imageUrl:"https://i0.hdslb.com/bfs/album/39c8ca474cd7fa25ac7fb883fab6857f8bca55ab.jpg@320w_161h_1e_1c.webp",
       rate: 5,
     },
   ];
