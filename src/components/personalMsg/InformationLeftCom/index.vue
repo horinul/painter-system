@@ -7,12 +7,23 @@
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       ></el-avatar>
       <span class="identifyText">{{ identifyText }}</span>
-      <THTag class="identifyTag" :showClose="false">{{ identifyTag }}</THTag>
+      <THTag class="identifyTag" :showClose="false" v-if="!isUser">{{
+        identifyTag
+      }}</THTag>
+      <span
+        style="margin-left: 20px; cursor: pointer"
+        @click="testChangeIdentify"
+        >切换(test)</span
+      >
     </div>
     <el-divider></el-divider>
     <div class="msgLink">
       <div
-        :class="['link', item.selected ? 'linkFocus' : '']"
+        :class="[
+          'link',
+          item.selected ? 'linkFocus' : '',
+          item.show ? '' : 'linkHidden',
+        ]"
         v-for="(item, index) in linkObj"
         :key="index"
         @click="toRoute(item)"
@@ -21,13 +32,14 @@
         <span class="linkText">{{ item.name }}</span>
       </div>
     </div>
-    <el-divider></el-divider>
-    <schedule />
+    <el-divider v-if="!isUser"></el-divider>
+    <schedule v-if="!isUser" />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
+import { identify } from "@/enums/allUserEnums";
 @Component({
   components: {
     schedule,
@@ -36,35 +48,51 @@ import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private linkObj = {
-    myOrder: {
-      label: "myOrder",
-      name: "我的企划",
-      src: require("../../../assets/myOrder.png"),
-      selected: false,
-      children: ["contributingOrder", "settledOrder", "undoneOrder"],
-    },
-    orderInvite: {
-      label: "orderInvite",
-      name: "企划邀请",
-      src: require("../../../assets/orderInvite.png"),
-      selected: false,
-      children: ["untreated", "rejected"],
-    },
-    msgList: {
-      label: "msgList",
-      name: "消息列表",
-      src: require("../../../assets/msgList.png"),
-      selected: false,
-      children: [],
-    },
-  };
+  private identify: identify = identify.printer;
+  get linkObj() {
+    return {
+      myOrder: {
+        label: "myOrder",
+        name: "我的企划",
+        src: require("../../../static/myOrder.png"),
+        selected: false,
+        children: ["contributingOrder", "settledOrder", "undoneOrder"],
+        show: true,
+      },
+      orderInvite: {
+        label: "orderInvite",
+        name: "企划邀请",
+        src: require("../../../static/orderInvite.png"),
+        selected: false,
+        children: ["untreated", "rejected"],
+        show: !this.isUser,
+      },
+      msgList: {
+        label: "msgList",
+        name: "消息列表",
+        src: require("../../../static/msgList.png"),
+        selected: false,
+        children: [],
+        show: true,
+      },
+    };
+  }
+
   created() {
     for (let item in this.linkObj) {
       if (this.linkObj[item].children.includes(this.$route.name)) {
         this.linkObj[item].selected = true;
       }
     }
+  }
+  private testChangeIdentify() {
+    this.identifyText =
+      this.identifyText === "我是画师" ? "我是顾客" : "我是画师";
+    this.identify =
+      this.identify === identify.user ? identify.printer : identify.user;
+  }
+  get isUser() {
+    return this.identify === identify.user;
   }
   private toRoute(item) {
     this.$router.push(item.label);
@@ -117,5 +145,8 @@ export default class InformationLeftCom extends Vue {
   .linkFocus {
     font-weight: 800;
   }
+}
+.linkHidden {
+  display: none !important;
 }
 </style>

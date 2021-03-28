@@ -2,7 +2,7 @@
   <!-- 档期组件 -->
   <div class="scheduleCom">
     <div class="head">
-      <img src="../../../assets/schedule.png" alt="" class="headIcon" />
+      <img src="../../../static/schedule.png" alt="" class="headIcon" />
       <span class="headText">当前档期</span>
     </div>
     <div class="statusCom">
