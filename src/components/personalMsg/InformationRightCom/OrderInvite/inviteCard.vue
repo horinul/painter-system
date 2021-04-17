@@ -21,7 +21,7 @@
         </div>
         <div class="rightHeader">
           <span v-if="!isRejected">
-            <THButton>接稿</THButton>
+            <THButton @click="agreeInvite">接稿</THButton>
             <THButton class="rejectBtn">拒绝</THButton>
           </span>
           <THButton type="green">联系顾客</THButton>
@@ -38,6 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { OrderInvite } from "@/types/orderTypes";
+import { UserService } from "@/api";
 
 @Component({
   components: {},
@@ -48,6 +49,10 @@ export default class InviteCard extends Vue {
 
   @Prop({ default: false })
   private isRejected!: boolean;
+
+  private async agreeInvite() {
+    let res = await UserService.agreeInvite();
+  }
 }
 </script>
 

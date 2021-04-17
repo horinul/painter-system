@@ -1,14 +1,15 @@
 <template>
   <div class="component">
     <div class="cardBodyCom">
-      <OrderCard :customerList="customer" :orderStatus="status" />
+      <OrderCard :customerList="listMsg" :orderStatus="status" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
-import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
+import { wholeOrderInvite } from "@/enums/orderEnums";
+import { UserService } from "@/api";
 
 @Component({
   components: {
@@ -17,44 +18,27 @@ import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
 })
 export default class UndoneOrder extends Vue {
   private status = wholeOrderInvite.UndoneOrder;
-  private customer = [
-    {
-      name: "亲爱的张三",
-      title: "张三的头像",
-      price: "2000",
-      style: "日系",
-      format: "jpg",
-      startTime: "2020-1-1",
-      deadline: "2020-2-2",
-      endTime: "2020-2-3",
-      currentStatus: myOrderCurrStatus.notStart,
-      rate: 0,
-    },
-    {
-      name: "亲爱的张三",
-      title: "张三的头像",
-      price: "2000",
-      style: "日系",
-      format: "jpg",
-      startTime: "2020-1-1",
-      deadline: "2020-2-2",
-      endTime: "2020-2-3",
-      currentStatus: myOrderCurrStatus.notStart,
-      rate: 4,
-    },
-    {
-      name: "亲爱的张三",
-      title: "张三的头像",
-      price: "2000",
-      style: "日系",
-      format: "jpg",
-      startTime: "2020-1-1",
-      deadline: "2020-2-2",
-      endTime: "2020-2-3",
-      currentStatus: myOrderCurrStatus.notStart,
-      rate: 5,
-    },
-  ];
+
+  private listMsg = [];
+  created() {
+    this.getList();
+  }
+  private async getList() {
+    let res = await UserService.unfinishPlanList();
+    this.listMsg = res.data;
+    console.info(this.listMsg);
+    for (let i = 0; i < this.listMsg.length; i++) {
+      if ((this.listMsg[i] as any).order.state === 1) {
+        (this.listMsg[i] as any).order.state = "草稿";
+      } else if ((this.listMsg[i] as any).order.state === 2) {
+        (this.listMsg[i] as any).order.state = "线稿";
+      } else if ((this.listMsg[i] as any).order.state === 3) {
+        (this.listMsg[i] as any).order.state = "上色";
+      } else {
+        (this.listMsg[i] as any).order.state = "截止";
+      }
+    }
+  }
 }
 </script>
 

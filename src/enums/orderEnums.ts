@@ -4,9 +4,10 @@ export enum wholeOrderInvite {
   UndoneOrder = 'undoneOrder',
   SettledOrder = 'settledOrder'
 }
+// 草稿 线稿 上色 截稿
 export enum myOrderCurrStatus {
-  notStart = "notStart",
-  draft = "draft",
-  coloring = "coloring",
-  finish = "finish"
+  draft = "1",
+  lineDraft = "2",
+  coloring = "3",
+  deadline = "4"
 }

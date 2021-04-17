@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import Login from "../views/Login.vue"
 import MainPage from '../views/MainPage.vue';
 import PersonalMsg from '../views/PersonalMsg.vue';
 import OrderDetail from '../views/OrderDetail.vue';
@@ -21,6 +22,11 @@ const routes: RouteConfig[] = [
     path: '/mainPage',
     name: 'MainPage',
     component: MainPage,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/personalMsg',

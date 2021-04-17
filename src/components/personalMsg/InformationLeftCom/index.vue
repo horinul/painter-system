@@ -43,7 +43,7 @@ import { identify } from "@/enums/allUserEnums";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.user;
+  private identify: identify = identify.printer;
 
   private linkObj = {
     myOrder: {
@@ -56,7 +56,7 @@ export default class InformationLeftCom extends Vue {
     },
     orderInvite: {
       label: "orderInvite",
-      name: "企划邀请(user不显示）",
+      name: "企划邀请",
       src: require("../../../static/orderInvite.png"),
       selected: false,
       children: ["untreated", "rejected"],
