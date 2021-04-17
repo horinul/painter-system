@@ -7,9 +7,10 @@
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       ></el-avatar>
       <span class="identifyText">{{ identifyText }}</span>
-      <THTag class="identifyTag" :showClose="false" v-if="!isUser">{{
-        identifyTag
-      }}</THTag>
+      <THTag class="identifyTag" :showClose="false" v-if="!isUser">
+        {{ identifyTag }}
+      </THTag>
+      <span class="addOrder" @click="dialogVisible = true">发起企划</span>
     </div>
     <el-divider></el-divider>
     <div class="msgLink">
@@ -29,6 +30,54 @@
     </div>
     <el-divider v-if="!isUser"></el-divider>
     <schedule v-if="!isUser" />
+    <el-dialog title="发起企划" :visible.sync="dialogVisible" width="50%">
+      <div class="dialogCom">
+        <el-form ref="form" :model="order" label-width="100px">
+          <el-form-item label="企划名称">
+            <el-input v-model="order.title"></el-input>
+          </el-form-item>
+          <el-form-item label="企划价格">
+            <el-input v-model="order.price" type="number"></el-input>
+          </el-form-item>
+
+          <el-form-item label="期待完成时间" style="text-align: left">
+            <el-date-picker
+              placeholder="选择日期"
+              type="date"
+              v-model="order.deadline"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item label="参考例图" class="uploadCom">
+            <el-upload
+              action="null"
+              class="avatar-uploader"
+              :show-file-list="false"
+            >
+              <img v-if="order.img" :src="order.img" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="稿件格式" style="text-align: left">
+            <el-select v-model="order.format" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.value"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="企划详情">
+            <el-input type="textarea" v-model="order.desc" autosize></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addOrder()"> 确 定 </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script lang="ts">
@@ -43,8 +92,16 @@ import { identify } from "@/enums/allUserEnums";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.printer;
-
+  private identify: identify = identify.user;
+  private dialogVisible = false;
+  private order = {
+    title: "",
+    price: "",
+    deadline: "",
+    img: "",
+    format: "",
+    desc: "",
+  };
   private linkObj = {
     myOrder: {
       label: "myOrder",
@@ -71,6 +128,23 @@ export default class InformationLeftCom extends Vue {
       show: true,
     },
   };
+  private options = [
+    {
+      value: "png",
+    },
+    {
+      value: "jpg",
+    },
+    {
+      value: "jpeg",
+    },
+    {
+      value: "webp",
+    },
+    {
+      value: "svg",
+    },
+  ];
 
   created() {
     for (let item in this.linkObj) {
@@ -79,6 +153,10 @@ export default class InformationLeftCom extends Vue {
       }
     }
   }
+  private addOrder() {
+    this.dialogVisible = false;
+  }
+
   get isUser() {
     return this.identify === identify.user;
   }
@@ -110,6 +188,18 @@ export default class InformationLeftCom extends Vue {
     margin-left: 20px;
     margin-top: 22px;
   }
+  .addOrder {
+    border: 1px solid blue;
+    background-color: #6495ed;
+    color: #fff;
+    padding: 4px 6px;
+    line-height: 20px;
+    height: 20px;
+    margin-top: 15px;
+    margin-left: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }
 .msgLink {
   text-align: left;
@@ -136,5 +226,37 @@ export default class InformationLeftCom extends Vue {
 }
 .linkHidden {
   display: none !important;
+}
+.uploadCom {
+  text-align: left;
+  .avatar-uploader {
+    margin-top: 10px;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px solid #87cefa;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 240px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    border: 1px dashed #000;
+    border-radius: 5px;
+  }
+  .avatar {
+    border-radius: 6px;
+    width: 240px;
+    height: 150px;
+    display: block;
+  }
 }
 </style>

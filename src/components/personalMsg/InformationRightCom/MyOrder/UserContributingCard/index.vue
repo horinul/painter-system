@@ -33,12 +33,11 @@
         v-if="listMsg[selectedOrder]"
         :printerList="listMsg[selectedOrder].printerList"
         :isNeedToSelect="true"
+        @selectPrinter="changeSelectPrinter"
       />
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定
-        </el-button>
+        <el-button type="primary" @click="setPrinter()">确 定 </el-button>
       </span>
     </el-dialog>
   </div>
@@ -56,6 +55,7 @@ export default class UserContributingCard extends Vue {
   private dialogVisible = false;
   private selectedOrder = 0;
   private listMsg = {};
+  private selectPrinter = "";
 
   private openModal(index) {
     this.selectedOrder = index;
@@ -70,6 +70,16 @@ export default class UserContributingCard extends Vue {
   private async getList() {
     let res = await UserService.userContributing();
     this.listMsg = (res.data as any).data.orderList;
+  }
+  private setPrinter() {
+    this.dialogVisible = false;
+    console.log(this.listMsg[this.selectedOrder]);
+
+    // let res = UserService.selectPrinter(this.selectPrinter);
+  }
+
+  private changeSelectPrinter(printerId) {
+    this.selectPrinter = printerId;
   }
 }
 </script>

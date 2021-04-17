@@ -78,7 +78,7 @@ const routes: RouteConfig[] = [
     ],
   },
   {
-    path: '/orderDetail',
+    path: '/orderDetail/:id',
     name: 'OrderDetail',
     component: OrderDetail,
   }

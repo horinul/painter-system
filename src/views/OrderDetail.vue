@@ -15,7 +15,8 @@ import OrderDetailRight from "@/components/OrderDetailCom/OrderDetailRight/index
     OrderDetailRight,
   },
 })
-export default class OrderDetail extends Vue {}
+export default class OrderDetail extends Vue {
+}
 </script>
 
 <style lang='less' scoped>

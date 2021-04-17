@@ -15,7 +15,8 @@ import SignUpPrinterList from "@/components/OrderDetailCom/OrderDetailLeft/SignU
     SignUpPrinterList,
   },
 })
-export default class OrderDetailLeft extends Vue {}
+export default class OrderDetailLeft extends Vue {
+}
 </script>
 
 <style lang='less' scoped>

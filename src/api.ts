@@ -147,4 +147,14 @@ export class UserService {
       }
     })
   }
+  static async selectPrinter(printId, orderId): Promise<HttpResponse> {
+    return Service('/user/selectPrinter', {
+      method: 'post',
+      responseType: 'json',
+      params: {
+        printId: printId,
+        orderId: orderId
+      }
+    })
+  }
 }

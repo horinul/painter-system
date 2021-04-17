@@ -31,14 +31,17 @@ export default class SelectPrinter extends Vue {
   @Prop({ default: false })
   private isNeedToSelect!: boolean;
 
+  // @Prop()
+  // private selectPrinter!: string;
+
   private selectedPrinter: printerMsg = this.printerList[0];
 
   private selectItem(item) {
-    this.selectedPrinter = item;
+    this.$emit("selectPrinter",item.id);
   }
 
   private isSelected(item) {
-    return this.selectedPrinter.id === item.id;
+    return this.selectedPrinter === item.id;
   }
 }
 </script>

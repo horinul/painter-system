@@ -22,7 +22,7 @@ import { UserService } from "@/api";
 })
 export default class contributingOrder extends Vue {
   private status = wholeOrderInvite.ContributingOrder;
-  private identify = identify.printer;
+  private identify = identify.user;
   private listMsg = {};
   created() {
     this.getList();
@@ -30,7 +30,6 @@ export default class contributingOrder extends Vue {
   private async getList() {
     let res = await UserService.planingList();
     this.listMsg = res.data;
-    console.log(res)
   }
   get isUser() {
     return this.identify === identify.user;

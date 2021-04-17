@@ -15,7 +15,9 @@
               <THTag :showClose="false">顾客</THTag>
             </span>
             <span class="name">{{ customer.user.nickName }}</span>
-            <span class="title">{{ customer.order.title }}</span>
+            <span class="title" @click="toDetail(customer.order.id)">{{
+              customer.order.title
+            }}</span>
           </span>
           <THButton type="green" v-if="!isSettledOrder">联系顾客</THButton>
         </div>
@@ -122,6 +124,16 @@ export default class OrderCard extends Vue {
   get isUser() {
     return this.identify === identify.user;
   }
+
+  private toDetail(orderId) {
+    this.$router.push({
+      name: "OrderDetail",
+      path: "/orderDetail",
+      params: {
+        id: orderId,
+      },
+    });
+  }
   private statusOptions = [
     {
       value: myOrderCurrStatus.draft,
@@ -141,7 +153,6 @@ export default class OrderCard extends Vue {
     },
   ];
   private async changeOrderStatus(state) {
-    console.info(state);
     let res = await UserService.changeOrderStatus(state);
   }
 
@@ -180,6 +191,7 @@ export default class OrderCard extends Vue {
         }
         .title {
           text-decoration: underline;
+          cursor: pointer;
         }
       }
     }

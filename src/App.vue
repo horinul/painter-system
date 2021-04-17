@@ -3,9 +3,12 @@
     <el-container>
       <el-header>
         <router-link to="/login">login</router-link>
-        <router-link to="/personalMsg">personalMsg</router-link>
-        <router-link to="/orderDetail" style="margin-left:20px;">orderDetail</router-link>
-        <div>head</div>
+        <router-link to="/personalMsg" style="margin-left: 20px">
+          personalMsg
+        </router-link>
+        <router-link to="/orderDetail/1" style="margin-left: 20px">
+          orderDetail
+        </router-link>
       </el-header>
       <el-main><router-view></router-view></el-main>
       <el-footer>Footer</el-footer>
