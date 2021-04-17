@@ -22,7 +22,7 @@ import { UserService } from "@/api";
 })
 export default class contributingOrder extends Vue {
   private status = wholeOrderInvite.ContributingOrder;
-  private identify = identify.user;
+  private identify = identify.printer;
   private listMsg = {};
   created() {
     this.getList();

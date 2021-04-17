@@ -13,7 +13,11 @@
       <div class="cardBody">
         <div class="leftBody" v-if="hasPrinterSignUp(customer)">
           <span class="printer">应稿画师：</span>
-          <SelectPrinter :printerList="customer.printerList" />
+          <!-- <span>{{customer.printerList}}</span> -->
+          <SelectPrinter
+            :printerList="customer.printerList"
+            v-if="customer.printerList"
+          />
         </div>
         <div class="leftBody" v-else>当前订单暂时没有画师应稿噢~</div>
         <div class="rightBody">
@@ -26,6 +30,7 @@
     </el-card>
     <el-dialog title="选择画师" :visible.sync="dialogVisible" width="30%">
       <SelectPrinter
+        v-if="listMsg[selectedOrder]"
         :printerList="listMsg[selectedOrder].printerList"
         :isNeedToSelect="true"
       />

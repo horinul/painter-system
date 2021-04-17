@@ -56,12 +56,12 @@ export class UserService {
     })
   }
   static async register(
-    { identify, userName, password, nickName }
+    identify, userName, password, nickName
   ): Promise<HttpResponse> {
     return Service('/usercenter/register', {
       method: 'post',
       responseType: 'json',
-      params: {
+      data: {
         identify: identify,
         nickName: nickName,
         password: password,
@@ -98,7 +98,28 @@ export class UserService {
     })
   }
   static async userContributing(): Promise<HttpResponse> {
-    return Service('/user/searchCleared', {
+    return Service('/user/searchPlaning', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        id: id
+      }
+    })
+  }
+
+  static async userClearedList(): Promise<HttpResponse> {
+    return Service('/user/cleared', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        id: id
+      }
+    })
+  }
+
+
+  static async userUnfinishList(): Promise<HttpResponse> {
+    return Service('/user/searchNoCompleted', {
       method: 'get',
       responseType: 'json',
       params: {

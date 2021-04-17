@@ -10,6 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
 import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
 import { UserService } from "@/api";
+import { identify } from "@/enums/allUserEnums";
 @Component({
   components: {
     OrderCard,
@@ -17,14 +18,22 @@ import { UserService } from "@/api";
 })
 export default class settledOrder extends Vue {
   private status = wholeOrderInvite.SettledOrder;
-
-  private listMsg = {};
+  private identify = identify.printer;
+  private listMsg = [];
   created() {
-    this.getList();
+    if (this.identify === identify.user) {
+      this.getUserList();
+    } else {
+      this.getPrinterList();
+    }
   }
-  private async getList() {
+  private async getPrinterList() {
     let res = await UserService.clearedPlanList();
     this.listMsg = res.data;
+  }
+  private async getUserList() {
+    let res = await UserService.userClearedList();
+    this.listMsg = (res.data as any).data.list;
   }
 }
 </script>

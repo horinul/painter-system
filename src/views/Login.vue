@@ -87,8 +87,13 @@ export default class Login extends Vue {
     let res = await UserService.login(this.loginForm);
   }
   private async regist() {
-    let res = await UserService.register(JSON.parse(this.loginForm));
-    console.log(typeof this.loginForm.identify);
+    let res = await UserService.register(
+      this.loginForm.identify,
+      this.loginForm.nickName,
+      this.loginForm.password,
+      this.loginForm.userName
+    );
+    console.info(res);
   }
 }
 </script>

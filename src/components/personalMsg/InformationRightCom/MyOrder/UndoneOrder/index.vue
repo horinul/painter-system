@@ -10,6 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
 import { wholeOrderInvite } from "@/enums/orderEnums";
 import { UserService } from "@/api";
+import { identify } from "@/enums/allUserEnums";
 
 @Component({
   components: {
@@ -18,15 +19,33 @@ import { UserService } from "@/api";
 })
 export default class UndoneOrder extends Vue {
   private status = wholeOrderInvite.UndoneOrder;
-
+  private identify = identify.printer;
   private listMsg = [];
   created() {
-    this.getList();
+    if (this.identify === identify.printer) {
+      this.getPrinterList();
+    } else {
+      this.getUserList();
+    }
   }
-  private async getList() {
+  private async getPrinterList() {
     let res = await UserService.unfinishPlanList();
     this.listMsg = res.data;
-    console.info(this.listMsg);
+    for (let i = 0; i < this.listMsg.length; i++) {
+      if ((this.listMsg[i] as any).order.state === 1) {
+        (this.listMsg[i] as any).order.state = "草稿";
+      } else if ((this.listMsg[i] as any).order.state === 2) {
+        (this.listMsg[i] as any).order.state = "线稿";
+      } else if ((this.listMsg[i] as any).order.state === 3) {
+        (this.listMsg[i] as any).order.state = "上色";
+      } else {
+        (this.listMsg[i] as any).order.state = "截止";
+      }
+    }
+  }
+  private async getUserList() {
+    let res = await UserService.userUnfinishList();
+    this.listMsg = (res.data as any).data.list;
     for (let i = 0; i < this.listMsg.length; i++) {
       if ((this.listMsg[i] as any).order.state === 1) {
         (this.listMsg[i] as any).order.state = "草稿";

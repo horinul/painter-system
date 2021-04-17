@@ -7,20 +7,44 @@ export interface OrderInvite {
   content: string
   leave: string,
 };
-export interface myOrder {
-  name: string,
+export interface wholeMsg {
+  order: defaultOrder,
+  printer: defaultPrinter,
+  user: defaultUser,
+}
+export interface defaultOrder {
+  content: string,
+  drawings: string,
+  id: number,
+  limitTime: string,
+  money: number,
+  printId: number,
+  state: number,
+  style: string,
   title: string,
-  price: string,
-  style: string, // 这个是否有选项
-  format: string,
-  startTime: string,
-  deadline: string,
-  endTime: string,
-  currentStatus: myOrderCurrStatus,
+  userId: number
+}
+export interface defaultPrinter {
+  avatar: string,
+  getImgTime: number,
+  id: number,
+  identify: number,
+  isBusy: number,
+  nickName: string,
+  notice: string,
+  password: string,
   rate: number,
-  imageUrl: string,
-  signUpPrinterList: Array<printerMsg>,
-  selectPrinter: printerMsg
+  schedule: string,
+  username: string
+}
+export interface defaultUser {
+  avatar: string,
+  getImgTime: string,
+  id: number,
+  identify: number,
+  nickName: string,
+  password: string,
+  userName: string
 }
 export interface printerMsg {
   name: string,

@@ -1,92 +1,95 @@
 <template>
   <!-- 我的企划里面的每个卡片组件 -->
-  <div class="myOrderCardCom">
-    <el-card
-      class="boxCard"
-      shadow="hover"
-      v-for="(customer, index) in customerList"
-      :key="index"
-    >
-      <div slot="header" class="header">
-        <span class="headLeft">
-          <span>
-            <THTag :showClose="false">顾客</THTag>
-          </span>
-          <span class="name">{{ customer.user.nickName }}</span>
-          <span class="title">{{ customer.order.title }}</span>
-        </span>
-        <THButton type="green" v-if="!isSettledOrder">联系顾客</THButton>
-      </div>
-      <div class="cardBody">
-        <div class="leftCardBody">
-          <div class="price">价格：{{ customer.order.money }}</div>
-          <div class="style">稿件风格：{{ customer.order.style }}</div>
-          <div class="format" v-if="isContributing">
-            稿件格式：{{ customer.format }}
-          </div>
-          <div class="startTime" v-if="!isSettledOrder">
-            接约时间：{{ customer.startTime }}
-          </div>
-          <div class="deadline" v-if="!isSettledOrder">
-            截止时间：{{ customer.order.limitTime.slice(0, 10) }}
-          </div>
-          <div class="endTime" v-if="isSettledOrder">
-            交稿时间：{{ customer.endTime }}
-          </div>
-          <div class="currentStatus" v-if="isUndoneOrder">
-            当前进度：
+  <div class="myOrderCardCom" v-if="customerList">
+    <div v-if="customerList.length === 0">当前没有数据噢~</div>
+    <div v-else>
+      <el-card
+        class="boxCard"
+        shadow="hover"
+        v-for="(customer, index) in customerList"
+        :key="index"
+      >
+        <div slot="header" class="header">
+          <span class="headLeft">
             <span>
-              <el-select
-                v-model="customer.order.state"
-                placeholder="请选择"
-                size="mini"
-                @change="changeOrderStatus(customer.order.state)"
-              >
-                <el-option
-                  v-for="item in statusOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  :disabled="isUser"
-                >
-                </el-option>
-              </el-select>
+              <THTag :showClose="false">顾客</THTag>
             </span>
-          </div>
-          <div class="assess" v-if="isSettledOrder">
-            用户评价：
-            <el-rate v-model="customer.order.rate" :disabled="true"></el-rate>
-          </div>
+            <span class="name">{{ customer.user.nickName }}</span>
+            <span class="title">{{ customer.order.title }}</span>
+          </span>
+          <THButton type="green" v-if="!isSettledOrder">联系顾客</THButton>
         </div>
-        <div class="rightCardBody" v-if="!isContributing">
-          <!-- upload action="https://jsonplaceholder.typicode.com/posts/" 发起请求的地址 -->
-          <el-upload
-            v-if="!isUser"
-            action="null"
-            class="avatar-uploader"
-            :show-file-list="false"
-            :before-upload="beforeAvatarUpload"
-          >
+        <div class="cardBody">
+          <div class="leftCardBody">
+            <div class="price">价格：{{ customer.order.money }}</div>
+            <div class="style">稿件风格：{{ customer.order.style }}</div>
+            <div class="format" v-if="isContributing">
+              稿件格式：{{ customer.format }}
+            </div>
+            <div class="startTime" v-if="!isSettledOrder">
+              接约时间：{{ customer.startTime }}
+            </div>
+            <div class="deadline" v-if="!isSettledOrder">
+              截止时间：{{ customer.order.limitTime.slice(0, 10) }}
+            </div>
+            <div class="endTime" v-if="isSettledOrder">
+              交稿时间：{{ customer.endTime }}
+            </div>
+            <div class="currentStatus" v-if="isUndoneOrder">
+              当前进度：
+              <span>
+                <el-select
+                  v-model="customer.order.state"
+                  placeholder="请选择"
+                  size="mini"
+                  @change="changeOrderStatus(customer.order.state)"
+                >
+                  <el-option
+                    v-for="item in statusOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="isUser"
+                  >
+                  </el-option>
+                </el-select>
+              </span>
+            </div>
+            <div class="assess" v-if="isSettledOrder">
+              用户评价：
+              <el-rate v-model="customer.order.rate" :disabled="true"></el-rate>
+            </div>
+          </div>
+          <div class="rightCardBody" v-if="!isContributing">
+            <!-- upload action="https://jsonplaceholder.typicode.com/posts/" 发起请求的地址 -->
+            <el-upload
+              v-if="!isUser"
+              action="null"
+              class="avatar-uploader"
+              :show-file-list="false"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img
+                v-if="customer.order.drawings"
+                :src="customer.order.drawings"
+                class="avatar"
+              />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
             <img
-              v-if="customer.order.drawings"
+              v-if="customer.order.drawings && isUser"
               :src="customer.order.drawings"
               class="avatar"
             />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-          <img
-            v-if="customer.order.drawings && isUser"
-            :src="customer.order.drawings"
-            class="avatar"
-          />
+          </div>
         </div>
-      </div>
-    </el-card>
+      </el-card>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { myOrder } from "@/types/orderTypes";
+import { wholeMsg } from "@/types/orderTypes";
 import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
 import { identify } from "@/enums/allUserEnums";
 import { UserService } from "@/api";
@@ -96,7 +99,7 @@ import { UserService } from "@/api";
 })
 export default class OrderCard extends Vue {
   @Prop()
-  private customerList!: Array<myOrder>;
+  private customerList!: Array<wholeMsg>;
 
   private identify = identify.printer;
 

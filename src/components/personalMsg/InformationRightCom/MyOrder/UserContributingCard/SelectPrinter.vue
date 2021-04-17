@@ -33,9 +33,6 @@ export default class SelectPrinter extends Vue {
 
   private selectedPrinter: printerMsg = this.printerList[0];
 
-    created() {
-      console.info(this.printerList) 
-    }
   private selectItem(item) {
     this.selectedPrinter = item;
   }
