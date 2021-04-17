@@ -1,13 +1,14 @@
 <template>
   <div class="component">
-    <div class="leftCom"><OrderDetailLeft /></div>
-    <div class="rightCom"><OrderDetailRight /></div>
+    <div class="leftCom"><OrderDetailLeft :msgList="msgList" /></div>
+    <div class="rightCom"><OrderDetailRight :msgList="msgList" /></div>
   </div>
 </template>
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
 import OrderDetailLeft from "@/components/OrderDetailCom/OrderDetailLeft/index.vue";
 import OrderDetailRight from "@/components/OrderDetailCom/OrderDetailRight/index.vue";
+import { UserService } from "@/api";
 
 @Component({
   components: {
@@ -16,6 +17,14 @@ import OrderDetailRight from "@/components/OrderDetailCom/OrderDetailRight/index
   },
 })
 export default class OrderDetail extends Vue {
+  private msgList = [];
+  created() {
+    this.getList();
+  }
+  private async getList() {
+    let res = await UserService.orderDetail(this.$route.params.id);
+    this.msgList = res.data;
+  }
 }
 </script>
 

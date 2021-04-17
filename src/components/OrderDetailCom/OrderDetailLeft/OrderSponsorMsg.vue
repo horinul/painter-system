@@ -25,12 +25,14 @@
   </div>
 </template>
 <script lang='ts'>
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({
   components: {},
 })
 export default class OrderSponsorMsg extends Vue {
+  @Prop()
+  private msgList!: Array<object>;
   private username = "用户名字";
   private finishTime = 5;
   private price = "2000";

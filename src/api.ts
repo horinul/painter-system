@@ -149,11 +149,20 @@ export class UserService {
   }
   static async selectPrinter(printId, orderId): Promise<HttpResponse> {
     return Service('/user/selectPrinter', {
-      method: 'post',
+      method: 'put',
       responseType: 'json',
       params: {
         printId: printId,
         orderId: orderId
+      }
+    })
+  }
+  static async orderDetail(orderId): Promise<HttpResponse> {
+    return Service('/order/query', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        id: orderId
       }
     })
   }

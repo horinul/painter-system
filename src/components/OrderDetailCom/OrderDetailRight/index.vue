@@ -26,12 +26,15 @@
   </div>
 </template>
 <script lang='ts'>
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({
   components: {},
 })
 export default class OrderDetailRight extends Vue {
+  @Prop()
+  private msgList!: Array<object>;
+
   private openTime = "2021-03-01";
   private detailContent =
     "我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求" +

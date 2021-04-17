@@ -71,11 +71,19 @@ export default class UserContributingCard extends Vue {
     let res = await UserService.userContributing();
     this.listMsg = (res.data as any).data.orderList;
   }
-  private setPrinter() {
+  private async setPrinter() {
     this.dialogVisible = false;
-    console.log(this.listMsg[this.selectedOrder]);
 
-    // let res = UserService.selectPrinter(this.selectPrinter);
+    let res = await UserService.selectPrinter(
+      this.selectPrinter,
+      this.listMsg[this.selectedOrder].order.id
+    );
+    if ((res.data as any).code === 20000) {
+      this.$message.success("设置成功");
+      this.getList();
+    } else {
+      this.$message.error((res.data as any).message);
+    }
   }
 
   private changeSelectPrinter(printerId) {
