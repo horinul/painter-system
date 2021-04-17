@@ -1,6 +1,6 @@
 <template>
   <div class="login_container">
-    <div class="login_box">
+    <div :class="['login_box',isRegister ? '' : 'small_box']">
       <div class="title" v-if="!isRegister">登录</div>
       <div class="title" v-else>注册</div>
       <el-form
@@ -13,12 +13,14 @@
         <!-- 用户名 -->
         <el-form-item prop="userName">
           <el-input
-            prefix-icon="el-icon-user"
+            placeholder="请输入电话号码"
+            prefix-icon="el-icon-mobile-phone"
             v-model="loginForm.userName"
           ></el-input>
         </el-form-item>
-        <el-form-item prop="nickName">
+        <el-form-item prop="nickName" v-if="isRegister">
           <el-input
+            placeholder="请输入昵称"
             prefix-icon="el-icon-chat-round"
             v-model="loginForm.nickName"
           ></el-input>
@@ -27,6 +29,7 @@
         <!-- 密码 -->
         <el-form-item prop="password">
           <el-input
+            placeholder="请输入密码"
             prefix-icon="el-icon-unlock"
             v-model="loginForm.password"
             type="password"
@@ -84,16 +87,32 @@ export default class Login extends Vue {
     this.isRegister = !this.isRegister;
   }
   private async login() {
-    let res = await UserService.login(this.loginForm);
+    let res = await UserService.login(
+      this.loginForm.identify,
+      this.loginForm.userName,
+      this.loginForm.password
+    );
+    let data = res.data as any;
+    if (data.code === 20001) {
+      this.$message.error(data.msg);
+    } else if (data.code === 20000) {
+      this.$message.success("登陆成功");
+      this.$router.push('/contributingOrder')
+    }
   }
   private async regist() {
     let res = await UserService.register(
-      this.loginForm.identify,
+      this.loginForm.userName,
       this.loginForm.nickName,
       this.loginForm.password,
-      this.loginForm.userName
+      this.loginForm.identify
     );
-    console.info(res);
+    let data = res.data as any;
+    if (data.code === 1) {
+      this.$message.error(data.msg);
+    } else if (data.code === 0) {
+      this.$message.success("注册成功");
+    }
   }
 }
 </script>
@@ -110,6 +129,7 @@ export default class Login extends Vue {
   background-repeat: no-repeat;
   min-height: 100%;
 }
+
 .login_box {
   width: 450px;
   height: 320px;
@@ -126,6 +146,9 @@ export default class Login extends Vue {
     margin-top: 20px;
     font-size: 18px;
   }
+}
+.small_box {
+  height: 250px;
 }
 .changeLink {
   margin-right: 20px;

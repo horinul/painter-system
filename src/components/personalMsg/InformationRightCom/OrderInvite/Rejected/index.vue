@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import InviteCard from "@/components/personalMsg/InformationRightCom/OrderInvite/InviteCard.vue";
+import { UserService } from "@/api";
 
 @Component({
   components: {
@@ -38,6 +39,15 @@ export default class Rejected extends Vue {
       leave: "dada ddw",
     },
   ];
+  private listMsg = {};
+  created() {
+    this.getList();
+  }
+  private async getList() {
+    let res = await UserService.refuseInviteList();
+    this.listMsg = res.data;
+    console.info(res);
+  }
 }
 </script>
 

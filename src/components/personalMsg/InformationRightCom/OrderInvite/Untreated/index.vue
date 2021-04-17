@@ -1,13 +1,14 @@
 <template>
   <div class="component">
     <div class="cardBodyCom">
-      <InviteCard :customerList="customer" :isRejected="false" />
+      <InviteCard :customerList="listMsg" :isRejected="false" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import InviteCard from "@/components/personalMsg/InformationRightCom/OrderInvite/InviteCard.vue";
+import { UserService } from "@/api";
 
 @Component({
   components: {
@@ -38,6 +39,15 @@ export default class Untreated extends Vue {
       leave: "dada ddw",
     },
   ];
+  private listMsg = {};
+  created() {
+    this.getList();
+  }
+  private async getList() {
+    let res = await UserService.untreatInviteList();
+    this.listMsg = res.data;
+    console.info(res);
+  }
 }
 </script>
 

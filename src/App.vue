@@ -2,6 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
+        <router-link to="/login">login</router-link>
         <router-link to="/personalMsg">personalMsg</router-link>
         <router-link to="/orderDetail" style="margin-left:20px;">orderDetail</router-link>
         <div>head</div>

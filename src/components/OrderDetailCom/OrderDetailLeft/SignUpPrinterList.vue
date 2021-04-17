@@ -95,6 +95,13 @@ export default class SignUpPrinterList extends Vue {
       finishTimes: 5,
     },
   ];
+  // created() {
+  //   this.getList();
+  // }
+  // private async getList() {
+  //   let res = await UserService.userContributing();
+  //   this.listMsg = (res.data as any).data.orderList;
+  // }
 }
 </script>
 

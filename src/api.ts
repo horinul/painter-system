@@ -56,29 +56,29 @@ export class UserService {
     })
   }
   static async register(
-    identify, userName, password, nickName
+    userName, nickName, password, identify
   ): Promise<HttpResponse> {
     return Service('/usercenter/register', {
       method: 'post',
       responseType: 'json',
       data: {
-        identify: identify,
+        userName: userName,
         nickName: nickName,
         password: password,
-        userName: userName,
+        identify: identify,
       }
     })
   }
   static async login(
-    { identify, userName, password }
+    identify, userName, password
   ): Promise<HttpResponse> {
     return Service('/usercenter/login', {
       method: 'post',
       responseType: 'json',
-      params: {
+      data: {
         identify: identify,
-        password: password,
         userName: userName,
+        password: password,
       }
     })
   }
@@ -128,13 +128,23 @@ export class UserService {
     })
   }
 
-  // static async resgister(params: LoginParams): Promise<HttpResponse> {
-  //   return Axios('/api/user/resgister', {
-  //     method: 'get',
-  //     responseType: 'json',
-  //     params: {
-  //       ...params
-  //     },
-  //   })
-  // }
+
+  static async untreatInviteList(): Promise<HttpResponse> {
+    return Service('/printer/myInvite/lookInvite', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        printerId: id
+      }
+    })
+  }
+  static async refuseInviteList(): Promise<HttpResponse> {
+    return Service('/printer/myInvite/lookRefuseInvite', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        printerId: id
+      }
+    })
+  }
 }

@@ -30,6 +30,7 @@ export default class contributingOrder extends Vue {
   private async getList() {
     let res = await UserService.planingList();
     this.listMsg = res.data;
+    console.log(res)
   }
   get isUser() {
     return this.identify === identify.user;
