@@ -1,6 +1,6 @@
 <template>
   <div class="login_container">
-    <div :class="['login_box',isRegister ? '' : 'small_box']">
+    <div :class="['login_box', isRegister ? '' : 'small_box']">
       <div class="title" v-if="!isRegister">登录</div>
       <div class="title" v-else>注册</div>
       <el-form
@@ -97,7 +97,9 @@ export default class Login extends Vue {
       this.$message.error(data.msg);
     } else if (data.code === 20000) {
       this.$message.success("登陆成功");
-      this.$router.push('/contributingOrder')
+      this.$router.push("/contributingOrder");
+      localStorage.setItem("loginToken", data.data.token);
+      this.$store.commit("setToken", data.data.token);
     }
   }
   private async regist() {
