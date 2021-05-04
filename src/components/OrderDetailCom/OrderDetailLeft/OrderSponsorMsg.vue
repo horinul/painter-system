@@ -1,5 +1,5 @@
 <template>
-  <div class="sponsorComponent">
+  <div class="sponsorComponent" v-if="msgList.data">
     <div class="header">
       <img
         class="avatar"
@@ -8,17 +8,21 @@
       />
       <div class="userMsg">
         <div class="username">
-          {{ username }}
+          {{ msgList.data.user.nickName }}
         </div>
-        <div class="finishTime">共成功约稿{{ finishTime }}次</div>
+        <div class="finishTime">
+          共成功约稿{{ msgList.data.user.getImgTime }}次
+        </div>
       </div>
     </div>
     <el-divider></el-divider>
     <div class="body">
       <div class="title">稿件预算</div>
-      <div class="content">{{ price }}RMB</div>
+      <div class="content">{{ msgList.data.order.money }}RMB</div>
       <div class="title">预计交稿时间</div>
-      <div class="content">{{ deadlineTime }}</div>
+      <div class="content">
+        {{ msgList.data.order.limitTime.substr(0, 10) }}
+      </div>
     </div>
     <el-divider></el-divider>
     <el-button type="primary" round plain>立即应稿</el-button>
@@ -33,10 +37,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 export default class OrderSponsorMsg extends Vue {
   @Prop()
   private msgList!: Array<object>;
-  private username = "用户名字";
-  private finishTime = 5;
-  private price = "2000";
-  private deadlineTime = "2020/2/2";
 }
 </script>
 

@@ -1,11 +1,15 @@
 <template>
-  <div class="signUpPrinterListCom">
+  <div class="signUpPrinterListCom" v-if="msgList.data">
     <div class="header">
       <span>应稿画师</span>
-      <span>共10人</span>
+      <span>共{{ msgList.data.printers.length }}人</span>
     </div>
     <div class="body">
-      <div class="msgItem" v-for="(item, index) in painterList" :key="index">
+      <div
+        class="msgItem"
+        v-for="(item, index) in msgList.data.printers"
+        :key="index"
+      >
         <img :src="item.avatar" class="avatar" alt="" />
         <div class="painterMsg">
           <div class="username">{{ item.name }}</div>

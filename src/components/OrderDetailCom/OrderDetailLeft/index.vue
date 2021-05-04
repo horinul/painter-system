@@ -18,9 +18,6 @@ import SignUpPrinterList from "@/components/OrderDetailCom/OrderDetailLeft/SignU
 export default class OrderDetailLeft extends Vue {
   @Prop()
   private msgList!: Array<object>;
-  created() {
-    console.info(this.msgList) 
-  }
 }
 </script>
 

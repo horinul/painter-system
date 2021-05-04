@@ -10,7 +10,7 @@
       <THTag class="identifyTag" :showClose="false" v-if="!isUser">
         {{ identifyTag }}
       </THTag>
-      <span class="addOrder" @click="dialogVisible = true">发起企划</span>
+      <span v-else class="addOrder" @click="dialogVisible = true">发起企划</span>
     </div>
     <el-divider></el-divider>
     <div class="msgLink">
@@ -49,7 +49,7 @@
           </el-form-item>
           <el-form-item label="参考例图" class="uploadCom">
             <el-upload
-              action="null"
+              action="http://1.15.57.103:8085/file/upload?module=avator"
               class="avatar-uploader"
               :show-file-list="false"
             >
@@ -92,7 +92,7 @@ import { identify } from "@/enums/allUserEnums";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.user;
+  private identify: identify = identify.printer;
   private dialogVisible = false;
   private order = {
     title: "",
