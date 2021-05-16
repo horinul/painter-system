@@ -10,7 +10,7 @@ import { HttpResponse } from '@/types/allUserTypes'
 //   password: string
 // }
 //封装User类型的接口方法
-const id = 1
+const token=localStorage.getItem('loginToken')
 export class UserService {
   /**
    * @description 查询User的信息
@@ -22,7 +22,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       },
     })
   }
@@ -31,7 +31,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -40,7 +40,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -50,7 +50,7 @@ export class UserService {
       method: 'put',
       responseType: 'json',
       params: {
-        id: id,
+        // id: token,
         state: state
       }
     })
@@ -66,7 +66,7 @@ export class UserService {
         nickName: nickName,
         password: password,
         identify: identify,
-      }
+      } 
     })
   }
   static async login(
@@ -93,7 +93,7 @@ export class UserService {
       method: 'patch',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -102,7 +102,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -112,7 +112,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -123,7 +123,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        id: id
+        // id: token
       }
     })
   }
@@ -134,7 +134,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        printerId: id
+        // printerId: token
       }
     })
   }
@@ -143,7 +143,7 @@ export class UserService {
       method: 'get',
       responseType: 'json',
       params: {
-        printerId: id
+        // printerId: token
       }
     })
   }

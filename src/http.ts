@@ -47,8 +47,9 @@ const showStatus = (status: number) => {
 const service = axios.create({
   // 联调
   // baseURL: process.env.NODE_ENV === 'production' ? `/` : '/api',
-  baseURL: "http://1.15.57.103:8082/",
+  baseURL: "http://1.15.57.103:8085/",
   headers: {
+    token:localStorage.getItem('loginToken'),
     get: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
     },
@@ -79,10 +80,10 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use((config: AxiosRequestConfig) => {
   //获取token，并将其添加至请求头中
-  let token = localStorage.getItem('token')
-  if (token) {
-    config.headers.Authorization = `${token}`;
-  }
+  // let token = localStorage.getItem('localToken')
+  // if (token) {
+  //   config.headers.token = `${token}`;
+  // }
   return config
 }, (error) => {
   // 错误抛到业务代码
