@@ -1,7 +1,7 @@
 <template>
   <div class="component">
     <div class="cardBodyCom">
-      <InviteCard :customerList="customer" :isRejected="true" />
+      <InviteCard :customerList="listMsg" :isRejected="true" />
     </div>
   </div>
 </template>

@@ -24,7 +24,6 @@ export default class OrderDetail extends Vue {
   private async getList() {
     let res = await UserService.orderDetail(this.$route.params.id);
     this.msgList = res.data;
-    console.info(this.msgList);
   }
 }
 </script>

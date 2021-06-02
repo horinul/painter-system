@@ -1,7 +1,7 @@
 import Service from '@/http'
 import { HttpResponse } from '@/types/allUserTypes'
 //封装User类型的接口方法
-const token=localStorage.getItem('loginToken')
+const token = localStorage.getItem('loginToken')
 export class UserService {
   /**
    * @description 查询User的信息
@@ -57,7 +57,7 @@ export class UserService {
         nickName: nickName,
         password: password,
         identify: identify,
-      } 
+      }
     })
   }
   static async login(
@@ -73,17 +73,28 @@ export class UserService {
       }
     })
   }
-  static async inviteList(): Promise<HttpResponse> {
-    return Service('/printer/myInvite/lookInvite', {
-      method: 'get',
-      responseType: 'json',
-    })
-  }
-  static async agreeInvite(): Promise<HttpResponse> {
-    return Service('/printer/myInvite/argee', {
-      method: 'patch',
+  // static async inviteList(): Promise<HttpResponse> {
+  //   return Service('/printer/myInvite/lookInvite', {
+  //     method: 'get',
+  //     responseType: 'json',
+  //   })
+  // }
+  static async agreeInvite(orderId): Promise<HttpResponse> {
+    return Service('/printer/myInvite/agree', {
+      method: 'put',
       responseType: 'json',
       params: {
+        orderId: orderId
+        // id: token
+      }
+    })
+  }
+  static async refuseInvite(orderId): Promise<HttpResponse> {
+    return Service('/printer/myInvite/refuse', {
+      method: 'put',
+      responseType: 'json',
+      params: {
+        orderId: orderId
         // id: token
       }
     })

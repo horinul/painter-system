@@ -16,21 +16,21 @@
             v-if="isRejected"
             >已拒绝
           </THTag>
-          <span class="name">顾客：{{ customer.name }}</span>
-          <span class="price">价格：{{ customer.price }}</span>
+          <span class="name">顾客：{{ customer.user }}</span>
+          <span class="price">价格：{{ customer.money }}</span>
         </div>
         <div class="rightHeader">
           <span v-if="!isRejected">
-            <THButton @click="agreeInvite">接稿</THButton>
-            <THButton class="rejectBtn">拒绝</THButton>
+            <THButton @click="agreeInvite(customer.orderId)">接稿</THButton>
+            <THButton @click="rejectInvite(customer.orderId)" class="rejectBtn">拒绝</THButton>
           </span>
           <THButton type="green">联系顾客</THButton>
         </div>
       </div>
       <div class="cardBody">
-        <div class="time">联系时间：{{ customer.time }}</div>
+        <div class="time">联系时间：{{ customer.startTime }}</div>
         <div class="content">内容：{{ customer.content }}</div>
-        <div class="leave">留言：{{ customer.leave }}</div>
+        <!-- <div class="leave">留言：{{ customer.leave }}</div> -->
       </div>
     </el-card>
   </div>
@@ -50,8 +50,13 @@ export default class InviteCard extends Vue {
   @Prop({ default: false })
   private isRejected!: boolean;
 
-  private async agreeInvite() {
-    let res = await UserService.agreeInvite();
+  private async agreeInvite(orderId) {
+    let res = await UserService.agreeInvite(orderId);
+    this.$router.go(0)
+  }
+  private async rejectInvite(orderId) {
+    let res = await UserService.refuseInvite(orderId);
+    this.$router.go(0)
   }
 }
 </script>
