@@ -106,7 +106,7 @@ export default class OrderCard extends Vue {
   @Prop()
   private msgList!: Array<object>;
 
-  private identify = identify.printer;
+  private identify = identify.user;
 
   @Prop({ default: "", required: true })
   private orderStatus!: wholeOrderInvite;

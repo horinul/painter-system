@@ -168,4 +168,13 @@ export class UserService {
       }
     })
   }
+  static async addOrder(title, money, limitTime, style, content): Promise<HttpResponse> {
+    return Service('/order/addOrder', {
+      method: 'post',
+      responseType: 'json',
+      data: {
+        title, money, limitTime, style, content
+      }
+    })
+  }
 }

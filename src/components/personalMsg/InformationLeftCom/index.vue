@@ -10,7 +10,9 @@
       <THTag class="identifyTag" :showClose="false" v-if="!isUser">
         {{ identifyTag }}
       </THTag>
-      <span v-else class="addOrder" @click="dialogVisible = true">发起企划</span>
+      <span v-else class="addOrder" @click="dialogVisible = true"
+        >发起企划</span
+      >
     </div>
     <el-divider></el-divider>
     <div class="msgLink">
@@ -37,17 +39,17 @@
             <el-input v-model="order.title"></el-input>
           </el-form-item>
           <el-form-item label="企划价格">
-            <el-input v-model="order.price" type="number"></el-input>
+            <el-input v-model="order.money" type="number"></el-input>
           </el-form-item>
 
           <el-form-item label="期待完成时间" style="text-align: left">
             <el-date-picker
               placeholder="选择日期"
               type="date"
-              v-model="order.deadline"
+              v-model="order.limitTime"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="参考例图" class="uploadCom">
+          <!-- <el-form-item label="参考例图" class="uploadCom">
             <el-upload
               action="http://1.15.57.103:8085/file/upload?module=avator"
               class="avatar-uploader"
@@ -56,9 +58,9 @@
               <img v-if="order.img" :src="order.img" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="稿件格式" style="text-align: left">
-            <el-select v-model="order.format" placeholder="请选择">
+            <el-select v-model="order.style" placeholder="请选择">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -69,7 +71,11 @@
             </el-select>
           </el-form-item>
           <el-form-item label="企划详情">
-            <el-input type="textarea" v-model="order.desc" autosize></el-input>
+            <el-input
+              type="textarea"
+              v-model="order.content"
+              autosize
+            ></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -81,9 +87,10 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
 import { identify } from "@/enums/allUserEnums";
+import { UserService } from "@/api";
 @Component({
   components: {
     schedule,
@@ -92,15 +99,14 @@ import { identify } from "@/enums/allUserEnums";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.printer;
+  private identify: identify = identify.user;
   private dialogVisible = false;
   private order = {
     title: "",
-    price: "",
-    deadline: "",
-    img: "",
-    format: "",
-    desc: "",
+    money: "",
+    limitTime: "",
+    style: "",
+    content: "",
   };
   private linkObj = {
     myOrder: {
@@ -153,7 +159,15 @@ export default class InformationLeftCom extends Vue {
       }
     }
   }
-  private addOrder() {
+  private async addOrder() {
+    let res = await UserService.addOrder(
+      this.order.title,
+      this.order.money,
+      this.order.limitTime,
+      this.order.style,
+      this.order.content
+    );
+    console.info(res);
     this.dialogVisible = false;
   }
 
