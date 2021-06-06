@@ -102,7 +102,7 @@ export default class Login extends Vue {
       this.$message.success("登陆成功");
       this.$router.push("/contributingOrder");
       localStorage.setItem("loginToken", data.data.token);
-      this.$store.commit("setLogintToken", data.data.token);
+      this.$store.commit("setLoginToken", data.data.token);
       this.$store.commit("setIsUser", this.loginForm.identify === identify.user);
     }
   }

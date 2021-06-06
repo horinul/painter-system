@@ -12,7 +12,7 @@
             to="/login"
             tag="span"
             class="linkBtn"
-            v-if="isLogin"
+            v-if="!isLogin"
             >登录</router-link
           >
           <span @click="removeLogin" v-if="isLogin" class="linkBtn"
@@ -65,7 +65,7 @@ export default class App extends Vue {
     this.$router.push("/");
   }
 
-  private isLogin() {
+  get isLogin() {
     return this.$store.state.loginToken !== "";
   }
 }

@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    logintToken: '',
+    loginToken: '',
     isUser: null
   },
   mutations: {
-    setLogintToken(state, payload) {
-      state.logintToken = payload
+    setLoginToken(state, payload) {
+      state.loginToken = payload
     },
     setIsUser(state, payload) {
       state.isUser = payload
