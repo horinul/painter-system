@@ -66,6 +66,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { UserService } from "@/api";
+import { identify } from "@/enums/allUserEnums";
 
 @Component({
   components: {},
@@ -93,12 +94,16 @@ export default class Login extends Vue {
     );
     let data = res.data as any;
     if (data.code === 20001) {
-      this.$message.error(data.msg);
+      this.$message({
+        message: data.message,
+        type: "error",
+      });
     } else if (data.code === 20000) {
       this.$message.success("登陆成功");
       this.$router.push("/contributingOrder");
       localStorage.setItem("loginToken", data.data.token);
-      this.$store.commit("setToken", data.data.token);
+      this.$store.commit("setLogintToken", data.data.token);
+      this.$store.commit("setIsUser", this.loginForm.identify === identify.user);
     }
   }
   private async regist() {

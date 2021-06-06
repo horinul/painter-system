@@ -99,7 +99,6 @@ import { UserService } from "@/api";
 export default class InformationLeftCom extends Vue {
   private identifyText: String = "我是画师";
   private identifyTag: String = "认证画师";
-  private identify: identify = identify.user;
   private dialogVisible = false;
   private order = {
     title: "",
@@ -167,12 +166,14 @@ export default class InformationLeftCom extends Vue {
       this.order.style,
       this.order.content
     );
-    console.info(res);
     this.dialogVisible = false;
   }
 
   get isUser() {
-    return this.identify === identify.user;
+    if(this.$store.state.isUser){
+      this.identifyText="我是顾客"
+    }
+    return this.$store.state.isUser;
   }
   private toRoute(item) {
     this.$router.push(item.label);

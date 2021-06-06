@@ -93,7 +93,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { wholeMsg } from "@/types/orderTypes";
 import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
-import { identify } from "@/enums/allUserEnums";
 import { UserService } from "@/api";
 
 @Component({
@@ -105,8 +104,6 @@ export default class OrderCard extends Vue {
 
   @Prop()
   private msgList!: Array<object>;
-
-  private identify = identify.user;
 
   @Prop({ default: "", required: true })
   private orderStatus!: wholeOrderInvite;
@@ -125,7 +122,7 @@ export default class OrderCard extends Vue {
     return null;
   }
   get isUser() {
-    return this.identify === identify.user;
+    return this.$store.state.isUser;
   }
 
   private toDetail(orderId) {

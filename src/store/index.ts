@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    logintToken: ''
+    logintToken: '',
+    isUser: null
   },
   mutations: {
     setLogintToken(state, payload) {
       state.logintToken = payload
+    },
+    setIsUser(state, payload) {
+      state.isUser = payload
     }
   },
   actions: {

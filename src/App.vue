@@ -12,10 +12,10 @@
             to="/login"
             tag="span"
             class="linkBtn"
-            v-if="token === null"
+            v-if="isLogin"
             >登录</router-link
           >
-          <span @click="removeLogin" v-if="token !== null" class="linkBtn"
+          <span @click="removeLogin" v-if="isLogin" class="linkBtn"
             >退出登录</span
           >
           <router-link
@@ -23,7 +23,7 @@
             style="margin-left: 20px"
             tag="span"
             class="linkBtn"
-            v-if="token !== null"
+            v-if="isLogin"
           >
             个人信息
           </router-link>
@@ -32,7 +32,7 @@
             style="margin-left: 20px"
             tag="span"
             class="linkBtn"
-             v-if="token !== null"
+            v-if="isLogin"
           >
             订单详情
           </router-link>
@@ -54,17 +54,20 @@ import MainPage from "@/views/MainPage.vue";
 export default class App extends Vue {
   private token = localStorage.getItem("loginToken");
 
-  created(){
-    this.token=localStorage.getItem("loginToken")
+  mounted() {
+    this.token = localStorage.getItem("loginToken");
   }
 
-  // @Watch("token")
   private removeLogin() {
     localStorage.removeItem("loginToken");
-    this.token=localStorage.getItem('loginToken')
-    this.$router.push('/')
+    this.token = localStorage.getItem("loginToken");
+    this.$store.commit("setLoginToken", "");
+    this.$router.push("/");
   }
 
+  private isLogin() {
+    return this.$store.state.loginToken !== "";
+  }
 }
 </script>
 

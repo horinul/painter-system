@@ -10,8 +10,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
 import UserContributingCard from "@/components/personalMsg/InformationRightCom/MyOrder/UserContributingCard/index.vue";
-import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
-import { identify } from "@/enums/allUserEnums";
+import { wholeOrderInvite } from "@/enums/orderEnums";
 import { UserService } from "@/api";
 
 @Component({
@@ -22,7 +21,6 @@ import { UserService } from "@/api";
 })
 export default class contributingOrder extends Vue {
   private status = wholeOrderInvite.ContributingOrder;
-  private identify = identify.user;
   private listMsg = {};
   created() {
     this.getList();
@@ -32,7 +30,7 @@ export default class contributingOrder extends Vue {
     this.listMsg = res.data;
   }
   get isUser() {
-    return this.identify === identify.user;
+    return this.$store.state.isUser;
   }
 }
 </script>

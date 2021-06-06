@@ -5,6 +5,6 @@ export enum printerScheduleStatus {
   idle = 1
 }
 export enum identify {
-  user = 0,
-  printer = 1
+  user = 1,
+  printer = 0
 }
