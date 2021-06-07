@@ -100,10 +100,13 @@ export default class Login extends Vue {
       });
     } else if (data.code === 20000) {
       this.$message.success("登陆成功");
-      this.$router.push("/contributingOrder");
       localStorage.setItem("loginToken", data.data.token);
       this.$store.commit("setLoginToken", data.data.token);
-      this.$store.commit("setIsUser", this.loginForm.identify === identify.user);
+      this.$store.commit(
+        "setIsUser",
+        this.loginForm.identify === identify.user
+      );
+      this.$router.push("/contributingOrder");
     }
   }
   private async regist() {

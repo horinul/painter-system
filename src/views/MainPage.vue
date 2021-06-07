@@ -1,5 +1,6 @@
 <template>
   <div class="home" :style="{ backgroundImage: 'url(' + coverImgUrl + ')' }">
+   <slot></slot>
     <div class="title">画师约稿系统</div>
     <div class="text">轻松约稿，创作只属于你的精美画作</div>
   </div>
@@ -45,8 +46,13 @@ export default class MainPage extends Vue {
   width: 100%;
   height: 100%;
   // background-image: url("../static/bac.jpg");
-  background-size: 100% 110%;
+  background-size: 100% 100%;
   overflow: hidden;
+  text-align: center;
+}
+.linkBtn {
+  cursor: pointer;
+  color: #e5e5e5;
 }
 .title {
   color: #fff;

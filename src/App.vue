@@ -8,14 +8,10 @@
           </router-link>
         </div>
         <div>
-          <router-link
-            to="/login"
-            tag="span"
-            class="linkBtn"
-            v-if="!isLogin"
+          <router-link to="/login" tag="span" class="linkBtn" v-if="!token"
             >登录</router-link
           >
-          <span @click="removeLogin" v-if="isLogin" class="linkBtn"
+          <span @click="removeLogin" v-if="token" class="linkBtn"
             >退出登录</span
           >
           <router-link
@@ -23,7 +19,7 @@
             style="margin-left: 20px"
             tag="span"
             class="linkBtn"
-            v-if="isLogin"
+            v-if="token"
           >
             个人信息
           </router-link>
@@ -32,13 +28,15 @@
             style="margin-left: 20px"
             tag="span"
             class="linkBtn"
-            v-if="isLogin"
+            v-if="token"
           >
             订单详情
           </router-link>
         </div>
       </el-header>
-      <el-main><router-view></router-view></el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
       <el-footer>2021.5 @1.0.0</el-footer>
     </el-container>
   </div>
@@ -53,8 +51,12 @@ import MainPage from "@/views/MainPage.vue";
 })
 export default class App extends Vue {
   private token = localStorage.getItem("loginToken");
+  private isMainPage = true;
 
-  mounted() {
+  created() {
+    if (this.$route.name === "MainPage") {
+      this.isMainPage = true;
+    }
     this.token = localStorage.getItem("loginToken");
   }
 
@@ -64,9 +66,9 @@ export default class App extends Vue {
     this.$store.commit("setLoginToken", "");
     this.$router.push("/");
   }
-
-  get isLogin() {
-    return this.$store.state.loginToken !== "";
+  @Watch("$route")
+  private changeRoute(oldVal, newVal) {
+    this.token = localStorage.getItem("loginToken");
   }
 }
 </script>

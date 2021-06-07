@@ -1,11 +1,14 @@
 <template>
   <!-- 企划邀请显示的卡片组件 -->
   <div class="orderInviteComponent">
+    <div v-if="customerList.length === 0">当前没有数据～</div>
     <el-card
+      v-else
       class="boxCard"
       shadow="hover"
       v-for="(customer, index) in customerList"
       :key="index"
+      @click="toOrderDetail"
     >
       <div slot="header" class="header">
         <div class="leftHeader">
@@ -22,7 +25,9 @@
         <div class="rightHeader">
           <span v-if="!isRejected">
             <THButton @click="agreeInvite(customer.orderId)">接稿</THButton>
-            <THButton @click="rejectInvite(customer.orderId)" class="rejectBtn">拒绝</THButton>
+            <THButton @click="rejectInvite(customer.orderId)" class="rejectBtn"
+              >拒绝</THButton
+            >
           </span>
           <THButton type="green">联系顾客</THButton>
         </div>
@@ -52,11 +57,15 @@ export default class InviteCard extends Vue {
 
   private async agreeInvite(orderId) {
     let res = await UserService.printerAgreeInvite(orderId);
-    this.$router.go(0)
+    this.$router.go(0);
   }
   private async rejectInvite(orderId) {
     let res = await UserService.printerRefuseInvite(orderId);
-    this.$router.go(0)
+    this.$router.go(0);
+  }
+
+  private toOrderDetail(id) {
+    this.$router.push("/orderDetail/" + id);
   }
 }
 </script>
