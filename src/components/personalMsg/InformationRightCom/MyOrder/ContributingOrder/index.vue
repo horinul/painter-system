@@ -30,7 +30,7 @@ export default class contributingOrder extends Vue {
     this.listMsg = res.data;
   }
   get isUser() {
-    return this.$store.state.isUser;
+    return localStorage.getItem("isUser")==='true';
   }
 }
 </script>

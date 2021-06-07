@@ -22,7 +22,7 @@ export default class UndoneOrder extends Vue {
   private identify = identify.printer;
   private listMsg = [];
   created() {
-    if (this.$store.state.isUser) {
+    if (localStorage.getItem("isUser")==='true') {
       this.getPrinterList();
     } else {
       this.getUserList();

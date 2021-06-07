@@ -21,7 +21,7 @@ export default class settledOrder extends Vue {
   private identify = identify.printer;
   private listMsg = [];
   created() {
-    if (this.$store.state.isUser) {
+    if (localStorage.getItem("isUser")==='true') {
       this.getUserList();
     } else {
       this.getPrinterList();

@@ -122,7 +122,7 @@ export default class OrderCard extends Vue {
     return null;
   }
   get isUser() {
-    return this.$store.state.isUser;
+    return localStorage.getItem("isUser")==='true';
   }
 
   private toDetail(orderId) {
@@ -153,7 +153,7 @@ export default class OrderCard extends Vue {
     },
   ];
   private async changeOrderStatus(state) {
-    let res = await UserService.changeOrderStatus(state);
+    let res = await UserService.printerChangeOrderStatus(state);
   }
 
   get isSettledOrder() {
