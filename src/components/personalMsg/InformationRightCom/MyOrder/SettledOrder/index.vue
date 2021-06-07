@@ -21,14 +21,14 @@ export default class settledOrder extends Vue {
   private identify = identify.printer;
   private listMsg = [];
   created() {
-    if (this.identify === identify.user) {
+    if (this.$store.state.isUser) {
       this.getUserList();
     } else {
       this.getPrinterList();
     }
   }
   private async getPrinterList() {
-    let res = await UserService.clearedPlanList();
+    let res = await UserService.printerClearedPlanList();
     this.listMsg = res.data;
   }
   private async getUserList() {

@@ -74,7 +74,7 @@ export default class UserContributingCard extends Vue {
   private async setPrinter() {
     this.dialogVisible = false;
 
-    let res = await UserService.selectPrinter(
+    let res = await UserService.userSelectPrinter(
       this.selectPrinter,
       this.listMsg[this.selectedOrder].order.id
     );

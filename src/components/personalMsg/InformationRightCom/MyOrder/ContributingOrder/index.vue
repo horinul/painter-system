@@ -26,7 +26,7 @@ export default class contributingOrder extends Vue {
     this.getList();
   }
   private async getList() {
-    let res = await UserService.planingList();
+    let res = await UserService.printerPlaningList();
     this.listMsg = res.data;
   }
   get isUser() {

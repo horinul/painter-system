@@ -22,14 +22,14 @@ export default class UndoneOrder extends Vue {
   private identify = identify.printer;
   private listMsg = [];
   created() {
-    if (this.identify === identify.printer) {
+    if (this.$store.state.isUser) {
       this.getPrinterList();
     } else {
       this.getUserList();
     }
   }
   private async getPrinterList() {
-    let res = await UserService.unfinishPlanList();
+    let res = await UserService.printerUnfinishPlanList();
     this.listMsg = res.data;
     for (let i = 0; i < this.listMsg.length; i++) {
       if ((this.listMsg[i] as any).order.state === 1) {

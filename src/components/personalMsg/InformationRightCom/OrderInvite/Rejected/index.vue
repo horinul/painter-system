@@ -44,7 +44,7 @@ export default class Rejected extends Vue {
     this.getList();
   }
   private async getList() {
-    let res = await UserService.refuseInviteList();
+    let res = await UserService.printerRefuseInviteList();
     this.listMsg = res.data;
     console.info(this.listMsg)
   }

@@ -93,7 +93,7 @@ export default class App extends Vue {
   background-color: #f0f8ff;
   color: #333;
   text-align: center;
-  height: 650px;
+  height: 85vh;
   padding: 0;
 }
 .linkBtn {

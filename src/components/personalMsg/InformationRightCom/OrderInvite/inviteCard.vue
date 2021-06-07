@@ -51,11 +51,11 @@ export default class InviteCard extends Vue {
   private isRejected!: boolean;
 
   private async agreeInvite(orderId) {
-    let res = await UserService.agreeInvite(orderId);
+    let res = await UserService.printerAgreeInvite(orderId);
     this.$router.go(0)
   }
   private async rejectInvite(orderId) {
-    let res = await UserService.refuseInvite(orderId);
+    let res = await UserService.printerRefuseInvite(orderId);
     this.$router.go(0)
   }
 }

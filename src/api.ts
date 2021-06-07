@@ -8,7 +8,7 @@ export class UserService {
    * @param {number} teamId - 所要查询的团队ID
    * @return {HttpResponse} result
    */
-  static async clearedPlanList(): Promise<HttpResponse> {
+  static async printerClearedPlanList(): Promise<HttpResponse> {
     return Service('/printer/myPlan/cleared', {
       method: 'get',
       responseType: 'json',
@@ -17,7 +17,7 @@ export class UserService {
       },
     })
   }
-  static async planingList(): Promise<HttpResponse> {
+  static async printerPlaningList(): Promise<HttpResponse> {
     return Service('/printer/myPlan/planing', {
       method: 'get',
       responseType: 'json',
@@ -26,7 +26,7 @@ export class UserService {
       }
     })
   }
-  static async unfinishPlanList(): Promise<HttpResponse> {
+  static async printerUnfinishPlanList(): Promise<HttpResponse> {
     return Service('/printer/myPlan/unfinished', {
       method: 'get',
       responseType: 'json',
@@ -36,7 +36,7 @@ export class UserService {
     })
   }
 
-  static async changeOrderStatus(state: string): Promise<HttpResponse> {
+  static async printerChangeOrderStatus(state: string): Promise<HttpResponse> {
     return Service('/printer/myPlan/changeStatus', {
       method: 'put',
       responseType: 'json',
@@ -79,7 +79,7 @@ export class UserService {
   //     responseType: 'json',
   //   })
   // }
-  static async agreeInvite(orderId): Promise<HttpResponse> {
+  static async printerAgreeInvite(orderId): Promise<HttpResponse> {
     return Service('/printer/myInvite/agree', {
       method: 'put',
       responseType: 'json',
@@ -89,7 +89,7 @@ export class UserService {
       }
     })
   }
-  static async refuseInvite(orderId): Promise<HttpResponse> {
+  static async printerRefuseInvite(orderId): Promise<HttpResponse> {
     return Service('/printer/myInvite/refuse', {
       method: 'put',
       responseType: 'json',
@@ -131,7 +131,7 @@ export class UserService {
   }
 
 
-  static async untreatInviteList(): Promise<HttpResponse> {
+  static async printerUntreatInviteList(): Promise<HttpResponse> {
     return Service('/printer/myInvite/lookInvite', {
       method: 'get',
       responseType: 'json',
@@ -140,7 +140,7 @@ export class UserService {
       }
     })
   }
-  static async refuseInviteList(): Promise<HttpResponse> {
+  static async printerRefuseInviteList(): Promise<HttpResponse> {
     return Service('/printer/myInvite/lookRefuseInvite', {
       method: 'get',
       responseType: 'json',
@@ -149,7 +149,7 @@ export class UserService {
       }
     })
   }
-  static async selectPrinter(printId, orderId): Promise<HttpResponse> {
+  static async userSelectPrinter(printId, orderId): Promise<HttpResponse> {
     return Service('/user/selectPrinter', {
       method: 'put',
       responseType: 'json',
