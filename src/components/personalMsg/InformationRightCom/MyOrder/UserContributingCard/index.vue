@@ -94,7 +94,7 @@ export default class UserContributingCard extends Vue {
 
 <style lang='less' scoped>
 .userContributingCom {
-  height: 480px;
+  height: 70vh;
   overflow: auto;
   .boxCard {
     margin-bottom: 20px;

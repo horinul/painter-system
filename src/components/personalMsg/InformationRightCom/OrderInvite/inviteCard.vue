@@ -75,7 +75,7 @@ export default class InviteCard extends Vue {
   text-align: left;
 }
 .orderInviteComponent {
-  height: 480px;
+  height: 70vh;;
   overflow: auto;
   .boxCard {
     margin-bottom: 20px;

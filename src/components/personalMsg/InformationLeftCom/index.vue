@@ -167,6 +167,7 @@ export default class InformationLeftCom extends Vue {
       this.order.content
     );
     this.dialogVisible = false;
+    this.$router.go(0);
   }
 
   get isUser() {

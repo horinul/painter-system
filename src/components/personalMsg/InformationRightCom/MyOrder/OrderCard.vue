@@ -172,7 +172,7 @@ export default class OrderCard extends Vue {
 
 <style lang='less' scoped>
 .myOrderCardCom {
-  height: 480px;
+  height: 70vh;;
   overflow: auto;
   .el-card {
     text-align: left;
