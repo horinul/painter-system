@@ -24,13 +24,13 @@
             个人信息
           </router-link>
           <router-link
-            to="/orderDetail/1"
+            to="/changemsg"
             style="margin-left: 20px"
             tag="span"
             class="linkBtn"
             v-if="token"
           >
-            订单详情
+            修改个人信息
           </router-link>
         </div>
       </el-header>

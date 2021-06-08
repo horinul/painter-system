@@ -11,6 +11,7 @@ import UndoneOrder from '../components/personalMsg/InformationRightCom/MyOrder/U
 import OrderInvite from '../components/personalMsg/InformationRightCom/OrderInvite/index.vue';
 import Rejected from '../components/personalMsg/InformationRightCom/OrderInvite/Rejected/index.vue';
 import Untreated from '../components/personalMsg/InformationRightCom/OrderInvite/Untreated/index.vue';
+import ChangeMsg from '../components/personalMsg/InformationRightCom/ChangeMsg/index.vue'
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
@@ -34,6 +35,11 @@ const routes: RouteConfig[] = [
     component: PersonalMsg,
     redirect: '/myOrder',
     children: [
+      {
+        path: '/changemsg',
+        name: 'changemsg',
+        component: ChangeMsg,
+      },
       {
         path: '/myOrder',
         name: 'myOrder',

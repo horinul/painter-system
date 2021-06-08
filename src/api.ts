@@ -177,4 +177,13 @@ export class UserService {
       }
     })
   }
+  static async updateInfo(nickName, userName, passwordt): Promise<HttpResponse> {
+    return Service('usercenter/update', {
+      method: 'post',
+      responseType: 'json',
+      data: {
+        nickName, userName, passwordt
+      }
+    })
+  }
 }
