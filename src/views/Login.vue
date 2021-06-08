@@ -101,6 +101,7 @@ export default class Login extends Vue {
     } else if (data.code === 20000) {
       this.$message.success("登陆成功");
       localStorage.setItem("loginToken", data.data.token);
+      console.info("2 loginToken",localStorage.getItem('loginToken'))
       localStorage.setItem(
         "isUser",
         String(this.loginForm.identify === identify.user)

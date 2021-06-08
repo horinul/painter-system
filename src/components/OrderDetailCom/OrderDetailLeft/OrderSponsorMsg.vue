@@ -25,7 +25,9 @@
       </div>
     </div>
     <el-divider></el-divider>
-    <el-button type="primary" round plain>立即应稿</el-button>
+    <el-button type="primary" round plain v-if="isHasPrinter"
+      >立即应稿</el-button
+    >
   </div>
 </template>
 <script lang='ts'>
@@ -36,7 +38,11 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class OrderSponsorMsg extends Vue {
   @Prop()
-  private msgList!: Array<object>;
+  private msgList!: any;
+
+  get isHasPrinter() {
+    return this.msgList.data.order.printerId === "-1";
+  }
 }
 </script>
 

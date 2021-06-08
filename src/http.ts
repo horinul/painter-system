@@ -1,6 +1,7 @@
 // http.ts
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Message } from "element-ui"
+import qs from 'qs'
 
 const showStatus = (status: number) => {
   let message = ''
@@ -60,20 +61,20 @@ const service = axios.create({
   // 是否跨站点访问控制请求
   withCredentials: true,
   timeout: 30000,
-  transformRequest: [(data) => {
-    data = JSON.stringify(data)
-    return data
-  }],
+  // transformRequest: [(data) => {
+  //   data = JSON.stringify(data)
+  //   return data
+  // }],
   validateStatus() {
     // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
     return true
   },
-  transformResponse: [(data) => {
-    if (typeof data === 'string' && data.startsWith('{')) {
-      data = JSON.parse(data)
-    }
-    return data
-  }]
+  // transformResponse: [(data) => {
+  //   if (typeof data === 'string' && data.startsWith('{')) {
+  //     data = JSON.parse(data)
+  //   }
+  //   return data
+  // }]
 
 })
 
@@ -84,6 +85,7 @@ service.interceptors.request.use((config: AxiosRequestConfig) => {
   // if (token) {
   //   config.headers.token = `${token}`;
   // }
+  // config.data=qs.stringify(config.data)
   return config
 }, (error) => {
   // 错误抛到业务代码
@@ -121,4 +123,5 @@ service.interceptors.response.use((response: AxiosResponse) => {
   return Promise.reject(error)
 })
 
+console.info('1 from http:',localStorage.getItem('loginToken'))
 export default service

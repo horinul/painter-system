@@ -10,10 +10,18 @@
         <div class="subTitle">需求详情</div>
         <div class="content">{{ msgList.data.order.content }}</div>
       </div>
-      <div class="exampleImg">
+      <div class="">
+        <div class="subTitle">稿件格式</div>
+        <div class="content">{{ msgList.data.order.style }}</div>
+      </div>
+      <div class="">
+        <div class="subTitle">结束时间</div>
+        <div class="content">{{ msgList.data.order.limitTime }}</div>
+      </div>
+      <!-- <div class="exampleImg">
         <div class="subTitle">参考例图</div>
         <img class="content" :src="msgList.data.order.drawings" alt="" />
-      </div>
+      </div> -->
       <div class="claim">
         <div class="subTitle">稿件要求</div>
         <div class="content">{{ msgList.data.order.format }}</div>
@@ -30,16 +38,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 export default class OrderDetailRight extends Vue {
   @Prop()
   private msgList!: Array<object>;
-
-  private openTime = "2021-03-01";
-  private detailContent =
-    "我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求" +
-    "我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求" +
-    "我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求我是需求";
-  private requirements =
-    "要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg" +
-    "要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg" +
-    "要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg要求png，jpg";
 }
 </script>
 

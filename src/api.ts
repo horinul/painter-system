@@ -36,13 +36,13 @@ export class UserService {
     })
   }
 
-  static async printerChangeOrderStatus(state: string): Promise<HttpResponse> {
+  static async printerChangeOrderStatus(id:string,state: string): Promise<HttpResponse> {
     return Service('/printer/myPlan/changeStatus', {
       method: 'put',
       responseType: 'json',
       params: {
-        // id: token,
-        state: state
+        state,
+        id
       }
     })
   }
@@ -175,6 +175,17 @@ export class UserService {
       data: {
         title, money, limitTime, style, content
       }
+    })
+  }
+
+  static async uploadImage(file):Promise<HttpResponse>{
+    return Service('/file/upload',{
+      method:'post',
+      responseType:"json",
+      data:file,
+      params:{
+        module:1
+      },
     })
   }
 }

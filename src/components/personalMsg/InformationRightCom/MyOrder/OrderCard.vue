@@ -44,7 +44,9 @@
                   v-model="customer.order.state"
                   placeholder="请选择"
                   size="mini"
-                  @change="changeOrderStatus(customer.order.state)"
+                  @change="
+                    changeOrderStatus(customer.order.id, customer.order.state)
+                  "
                 >
                   <el-option
                     v-for="item in statusOptions"
@@ -63,13 +65,14 @@
             </div>
           </div>
           <div class="rightCardBody" v-if="!isContributing">
-            <!-- upload action="https://jsonplaceholder.typicode.com/posts/" 发起请求的地址 -->
             <el-upload
+              action=""
               v-if="!isUser"
-              action="null"
               class="avatar-uploader"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
+              :on-success="handleAvatarSuccess()"
+              :http-request="change"
             >
               <img
                 v-if="customer.order.drawings"
@@ -94,6 +97,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { wholeMsg } from "@/types/orderTypes";
 import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
 import { UserService } from "@/api";
+import axios from "axios";
 
 @Component({
   components: {},
@@ -106,23 +110,67 @@ export default class OrderCard extends Vue {
   private msgList!: Array<object>;
 
   @Prop({ default: "", required: true })
-  private orderStatus!: wholeOrderInvite;
+  private orderStatus!: wholeOrderInvite; //全部订单的状态集合
+
+  private dataToken!: string | null;
+
+  private imgTmp: any;
+
+  created() {
+    this.dataToken = localStorage.getItem("loginToken");
+  }
+
+  private async change(item) {
+    console.info(item);
+    let formData = new FormData();
+    formData.append("file", item.file);
+    const res = await UserService.uploadImage(formData);
+    // console.info(res)
+    // axios({
+    //   method: "post",
+    //   url: "/file/upload",
+    //   headers:
+    //     "multipart/form-data; boundary=----WebKitFormBoundarynl6gT1BKdPWIejNq",
+    //   data: formData,
+    //   params: {
+    //     module: 1,
+    //   },
+    // }).then((res) => {
+    //   console.info(res);
+    // });
+  }
 
   private beforeAvatarUpload(file) {
-    // const isJPG = file.type === "image/jpeg";
-    // const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 2;
 
-    // if (!isJPG) {
-    //   this.$message.error("上传头像图片只能是 JPG 格式!");
-    // }
-    // if (!isLt2M) {
-    //   this.$message.error("上传头像图片大小不能超过 2MB!");
-    // }
-    // return isJPG && isLt2M;
-    return null;
+    if (!isLt2M) {
+      this.$message.error("上传头像图片大小不能超过 2MB!");
+    }
+    return isLt2M;
+  }
+
+  private handleAvatarSuccess() {
+    // console.info(res, file);
+    // this.customer.order.drawings = URL.createObjectURL(file.raw);
+  }
+
+  mounted() {
+    setTimeout(() => {
+      for (let i = 0; i < this.customerList.length; i++) {
+        if ((this.customerList[i] as any).order.state === 1) {
+          (this.customerList[i] as any).order.state = "草稿";
+        } else if ((this.customerList[i] as any).order.state === 2) {
+          (this.customerList[i] as any).order.state = "线稿";
+        } else if ((this.customerList[i] as any).order.state === 3) {
+          (this.customerList[i] as any).order.state = "上色";
+        } else {
+          (this.customerList[i] as any).order.state = "截止";
+        }
+      }
+    }, 200);
   }
   get isUser() {
-    return localStorage.getItem("isUser")==='true';
+    return localStorage.getItem("isUser") === "true";
   }
 
   private toDetail(orderId) {
@@ -152,8 +200,8 @@ export default class OrderCard extends Vue {
       label: "截止",
     },
   ];
-  private async changeOrderStatus(state) {
-    let res = await UserService.printerChangeOrderStatus(state);
+  private async changeOrderStatus(id, state) {
+    let res = await UserService.printerChangeOrderStatus(id, state);
   }
 
   get isSettledOrder() {
@@ -172,7 +220,7 @@ export default class OrderCard extends Vue {
 
 <style lang='less' scoped>
 .myOrderCardCom {
-  height: 70vh;;
+  height: 70vh;
   overflow: auto;
   .el-card {
     text-align: left;

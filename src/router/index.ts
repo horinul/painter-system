@@ -11,6 +11,7 @@ import UndoneOrder from '../components/personalMsg/InformationRightCom/MyOrder/U
 import OrderInvite from '../components/personalMsg/InformationRightCom/OrderInvite/index.vue';
 import Rejected from '../components/personalMsg/InformationRightCom/OrderInvite/Rejected/index.vue';
 import Untreated from '../components/personalMsg/InformationRightCom/OrderInvite/Untreated/index.vue';
+import MsgList from '../views/MsgList.vue'
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
@@ -29,6 +30,11 @@ const routes: RouteConfig[] = [
     component: Login,
   },
   {
+    path: '/msgList',
+    name: "/msgList",
+    component: MsgList
+  },
+  {
     path: '/personalMsg',
     name: 'PersonalMsg',
     component: PersonalMsg,
@@ -38,7 +44,7 @@ const routes: RouteConfig[] = [
         path: '/myOrder',
         name: 'myOrder',
         component: MyOrder,
-        redirect: '/contributingOrder',
+        redirect: '/undoneOrder',
         children: [
           {
             path: '/contributingOrder',
