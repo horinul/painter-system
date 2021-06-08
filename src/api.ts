@@ -12,27 +12,18 @@ export class UserService {
     return Service('/printer/myPlan/cleared', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      },
     })
   }
   static async printerPlaningList(): Promise<HttpResponse> {
     return Service('/printer/myPlan/planing', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      }
     })
   }
   static async printerUnfinishPlanList(): Promise<HttpResponse> {
     return Service('/printer/myPlan/unfinished', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      }
     })
   }
 
@@ -73,19 +64,12 @@ export class UserService {
       }
     })
   }
-  // static async inviteList(): Promise<HttpResponse> {
-  //   return Service('/printer/myInvite/lookInvite', {
-  //     method: 'get',
-  //     responseType: 'json',
-  //   })
-  // }
   static async printerAgreeInvite(orderId): Promise<HttpResponse> {
     return Service('/printer/myInvite/agree', {
       method: 'put',
       responseType: 'json',
       params: {
         orderId: orderId
-        // id: token
       }
     })
   }
@@ -95,7 +79,6 @@ export class UserService {
       responseType: 'json',
       params: {
         orderId: orderId
-        // id: token
       }
     })
   }
@@ -103,9 +86,6 @@ export class UserService {
     return Service('/user/searchPlaning', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      }
     })
   }
 
@@ -113,9 +93,6 @@ export class UserService {
     return Service('/user/cleared', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      }
     })
   }
 
@@ -124,9 +101,6 @@ export class UserService {
     return Service('/user/searchNoCompleted', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // id: token
-      }
     })
   }
 
@@ -135,18 +109,12 @@ export class UserService {
     return Service('/printer/myInvite/lookInvite', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // printerId: token
-      }
     })
   }
   static async printerRefuseInviteList(): Promise<HttpResponse> {
     return Service('/printer/myInvite/lookRefuseInvite', {
       method: 'get',
       responseType: 'json',
-      params: {
-        // printerId: token
-      }
     })
   }
   static async userSelectPrinter(printId, orderId): Promise<HttpResponse> {

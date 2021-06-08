@@ -71,7 +71,6 @@
               class="avatar-uploader"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
-              :on-success="handleAvatarSuccess()"
               :http-request="change"
             >
               <img
@@ -112,32 +111,10 @@ export default class OrderCard extends Vue {
   @Prop({ default: "", required: true })
   private orderStatus!: wholeOrderInvite; //全部订单的状态集合
 
-  private dataToken!: string | null;
-
-  private imgTmp: any;
-
-  created() {
-    this.dataToken = localStorage.getItem("loginToken");
-  }
-
   private async change(item) {
-    console.info(item);
     let formData = new FormData();
     formData.append("file", item.file);
     const res = await UserService.uploadImage(formData);
-    // console.info(res)
-    // axios({
-    //   method: "post",
-    //   url: "/file/upload",
-    //   headers:
-    //     "multipart/form-data; boundary=----WebKitFormBoundarynl6gT1BKdPWIejNq",
-    //   data: formData,
-    //   params: {
-    //     module: 1,
-    //   },
-    // }).then((res) => {
-    //   console.info(res);
-    // });
   }
 
   private beforeAvatarUpload(file) {
@@ -147,11 +124,6 @@ export default class OrderCard extends Vue {
       this.$message.error("上传头像图片大小不能超过 2MB!");
     }
     return isLt2M;
-  }
-
-  private handleAvatarSuccess() {
-    // console.info(res, file);
-    // this.customer.order.drawings = URL.createObjectURL(file.raw);
   }
 
   mounted() {

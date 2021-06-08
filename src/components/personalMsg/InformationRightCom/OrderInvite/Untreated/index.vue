@@ -46,7 +46,6 @@ export default class Untreated extends Vue {
   private async getList() {
     let res = await UserService.printerUntreatInviteList();
     this.listMsg = res.data;
-    console.info(this.listMsg)
   }
 }
 </script>
