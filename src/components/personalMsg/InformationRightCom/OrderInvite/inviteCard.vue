@@ -75,7 +75,7 @@ export default class InviteCard extends Vue {
   text-align: left;
 }
 .orderInviteComponent {
-  height: 70vh;;
+  height: 70vh;
   overflow: auto;
   .boxCard {
     margin-bottom: 20px;
@@ -97,6 +97,10 @@ export default class InviteCard extends Vue {
     }
     .cardBody > div {
       padding: 5px;
+      max-width: 900px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
   .boxCard:last-child {
