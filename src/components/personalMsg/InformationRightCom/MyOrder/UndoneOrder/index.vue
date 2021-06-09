@@ -31,32 +31,10 @@ export default class UndoneOrder extends Vue {
   private async getPrinterList() {
     let res = await UserService.printerUnfinishPlanList();
     this.listMsg = res.data;
-    // for (let i = 0; i < this.listMsg.length; i++) {
-    //   if ((this.listMsg[i] as any).order.state === 1) {
-    //     (this.listMsg[i] as any).order.state = "草稿";
-    //   } else if ((this.listMsg[i] as any).order.state === 2) {
-    //     (this.listMsg[i] as any).order.state = "线稿";
-    //   } else if ((this.listMsg[i] as any).order.state === 3) {
-    //     (this.listMsg[i] as any).order.state = "上色";
-    //   } else {
-    //     (this.listMsg[i] as any).order.state = "截止";
-    //   }
-    // }
   }
   private async getUserList() {
     let res = await UserService.userUnfinishList();
     this.listMsg = (res.data as any).data.list;
-    // for (let i = 0; i < this.listMsg.length; i++) {
-    //   if ((this.listMsg[i] as any).order.state === 1) {
-    //     (this.listMsg[i] as any).order.state = "草稿";
-    //   } else if ((this.listMsg[i] as any).order.state === 2) {
-    //     (this.listMsg[i] as any).order.state = "线稿";
-    //   } else if ((this.listMsg[i] as any).order.state === 3) {
-    //     (this.listMsg[i] as any).order.state = "上色";
-    //   } else {
-    //     (this.listMsg[i] as any).order.state = "截止";
-    //   }
-    // }
   }
 }
 </script>

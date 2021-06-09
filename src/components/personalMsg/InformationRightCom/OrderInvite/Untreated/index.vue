@@ -16,29 +16,6 @@ import { UserService } from "@/api";
   },
 })
 export default class Untreated extends Vue {
-  private customer = [
-    {
-      name: "亲爱的张三",
-      price: "2000",
-      time: "2020-2-2",
-      content: "想画个张三的头像",
-      leave: "dada ddw",
-    },
-    {
-      name: "亲爱的张三",
-      price: "2000",
-      time: "2020-2-2",
-      content: "想画个张三的头像",
-      leave: "dada ddw",
-    },
-    {
-      name: "亲爱的张三",
-      price: "2000",
-      time: "2020-2-2",
-      content: "想画个张三的头像",
-      leave: "dada ddw",
-    },
-  ];
   private listMsg = {};
   created() {
     this.getList();

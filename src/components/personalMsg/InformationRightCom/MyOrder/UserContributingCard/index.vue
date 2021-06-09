@@ -1,5 +1,66 @@
 <template>
   <div class="userContributingCom">
+    <el-dialog
+      title="编辑企划"
+      :visible.sync="editDialogVisible"
+      width="50%"
+      v-if="listMsg"
+    >
+      <div class="dialogCom">
+        <el-form
+          ref="form"
+          :model="listMsg[selectedOrder].order"
+          label-width="100px"
+        >
+          <el-form-item label="企划名称">
+            <el-input v-model="listMsg[selectedOrder].order.title"></el-input>
+          </el-form-item>
+          <el-form-item label="企划价格">
+            <el-input
+              v-model="listMsg[selectedOrder].order.money"
+              type="number"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label="期待完成时间" style="text-align: left">
+            <el-date-picker
+              placeholder="选择日期"
+              type="date"
+              v-model="listMsg[selectedOrder].order.limitTime"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item label="稿件格式" style="text-align: left">
+            <el-select
+              v-model="listMsg[selectedOrder].order.style"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.value"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="企划详情">
+            <el-input
+              type="textarea"
+              v-model="listMsg[selectedOrder].order.content"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="editMsg(listMsg[selectedOrder].order.id)"
+        >
+          确 定
+        </el-button>
+      </span>
+    </el-dialog>
     <el-card
       class="boxCard"
       shadow="hover"
@@ -21,14 +82,16 @@
         </div>
         <div class="leftBody" v-else>当前订单暂时没有画师应稿噢~</div>
         <div class="rightBody">
-          <THButton @click="openModal(index)" v-if="hasPrinterSignUp(customer)"
+          <THButton
+            @click="createSelectVisible(index)"
+            v-if="hasPrinterSignUp(customer)"
             >选择画师</THButton
           >
-          <THButton type="green">编辑</THButton>
+          <THButton type="green" @click="openEditModal(index)">编辑</THButton>
         </div>
       </div>
     </el-card>
-    <el-dialog title="选择画师" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="选择画师" :visible.sync="SelectDialogVisible" width="30%">
       <SelectPrinter
         v-if="listMsg[selectedOrder]"
         :printerList="listMsg[selectedOrder].printerList"
@@ -36,7 +99,7 @@
         @selectPrinter="changeSelectPrinter"
       />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="SelectDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="setPrinter()">确 定 </el-button>
       </span>
     </el-dialog>
@@ -52,18 +115,62 @@ import SelectPrinter from "@/components/personalMsg/InformationRightCom/MyOrder/
   },
 })
 export default class UserContributingCard extends Vue {
-  private dialogVisible = false;
+  private SelectDialogVisible = false;
+  private editDialogVisible = false;
   private selectedOrder = 0;
   private listMsg = {};
   private selectPrinter = "";
 
-  private openModal(index) {
+  // private listMsg[selectedOrder] = {};
+
+  private createSelectVisible(index) {
     this.selectedOrder = index;
-    this.dialogVisible = true;
+    this.SelectDialogVisible = true;
+  }
+
+  private openEditModal(index) {
+    this.selectedOrder = index;
+    this.editDialogVisible = true;
+    // this.listMsg[selectedOrder] = JSON.parse(JSON.stringify(this.listMsg[this.selectedOrder]))
   }
   private hasPrinterSignUp(customer) {
     return customer?.printerList?.length > 0;
   }
+
+  private async editMsg(orderId) {
+    const res = await UserService.updateOrder(
+      this.listMsg[this.selectedOrder].order.title,
+      this.listMsg[this.selectedOrder].order.money,
+      this.listMsg[this.selectedOrder].order.limitTime,
+      this.listMsg[this.selectedOrder].order.style,
+      this.listMsg[this.selectedOrder].order.content,
+      orderId
+    );
+    console.info(res);
+    if (res.data["code"] === 20000) {
+      this.editDialogVisible = false;
+      this.$message.success("上传成功");
+    } else {
+      this.$message.error("修改失败");
+    }
+  }
+  private options = [
+    {
+      value: "png",
+    },
+    {
+      value: "jpg",
+    },
+    {
+      value: "jpeg",
+    },
+    {
+      value: "webp",
+    },
+    {
+      value: "svg",
+    },
+  ];
   created() {
     this.getList();
   }
@@ -72,7 +179,7 @@ export default class UserContributingCard extends Vue {
     this.listMsg = (res.data as any).data.orderList;
   }
   private async setPrinter() {
-    this.dialogVisible = false;
+    this.SelectDialogVisible = false;
 
     let res = await UserService.userSelectPrinter(
       this.selectPrinter,

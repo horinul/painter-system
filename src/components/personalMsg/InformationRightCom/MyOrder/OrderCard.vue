@@ -61,10 +61,28 @@
             </div>
             <div class="assess" v-if="isSettledOrder">
               用户评价：
-              <el-rate v-model="customer.order.rate" :disabled="true"></el-rate>
+              <span v-if="!isUser && customer.order.rate === 0"
+                >用户还没有评价哦～</span
+              >
+              <el-rate
+                v-else
+                v-model="customer.order.rate"
+                :disabled="!isUser ? true : false"
+                @change="rateChange"
+              ></el-rate>
+              <span class="saveRate" @click="saveRateChange(customer.order.id)" v-if="isUser">
+                保存评分
+              </span>
             </div>
           </div>
           <div class="rightCardBody" v-if="!isContributing">
+            <div
+              v-if="isUndoneOrder"
+              class="deleteImgBtn"
+              @click="deleteUpload(customer.order.drawings)"
+            >
+              <i class="el-icon-circle-close"></i>
+            </div>
             <el-upload
               action=""
               v-if="!isUser"
@@ -72,6 +90,7 @@
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
               :http-request="change"
+              :data="customer.order.id"
             >
               <img
                 v-if="customer.order.drawings"
@@ -80,11 +99,6 @@
               />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <img
-              v-if="customer.order.drawings && isUser"
-              :src="customer.order.drawings"
-              class="avatar"
-            />
           </div>
         </div>
       </el-card>
@@ -92,11 +106,10 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { wholeMsg } from "@/types/orderTypes";
 import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
 import { UserService } from "@/api";
-import axios from "axios";
 
 @Component({
   components: {},
@@ -111,10 +124,20 @@ export default class OrderCard extends Vue {
   @Prop({ default: "", required: true })
   private orderStatus!: wholeOrderInvite; //全部订单的状态集合
 
+  private rateTmp=0
   private async change(item) {
     let formData = new FormData();
     formData.append("file", item.file);
-    const res = await UserService.uploadImage(formData);
+    const res = await UserService.uploadImage(formData, item.data);
+    if (res.data["success"]) {
+      this.$router.go(0);
+    } else {
+      this.$message.error("上传失败");
+    }
+  }
+  private async deleteUpload(url) {
+    // const res = await UserService.deleteImage(url);
+    // console.info(res);
   }
 
   private beforeAvatarUpload(file) {
@@ -141,6 +164,7 @@ export default class OrderCard extends Vue {
       }
     }, 200);
   }
+
   get isUser() {
     return localStorage.getItem("isUser") === "true";
   }
@@ -154,6 +178,7 @@ export default class OrderCard extends Vue {
       },
     });
   }
+
   private statusOptions = [
     {
       value: myOrderCurrStatus.draft,
@@ -172,8 +197,17 @@ export default class OrderCard extends Vue {
       label: "截止",
     },
   ];
+
   private async changeOrderStatus(id, state) {
     let res = await UserService.printerChangeOrderStatus(id, state);
+    if (state === 4) {
+      this.$router.go(0);
+    }
+  }
+
+  private saveRateChange(orderId) {
+     const res = UserService.changeOrderRate(orderId,this.rateTmp);
+    console.info(res)
   }
 
   get isSettledOrder() {
@@ -186,6 +220,10 @@ export default class OrderCard extends Vue {
 
   get isUndoneOrder() {
     return this.orderStatus === wholeOrderInvite.UndoneOrder;
+  }
+
+  private rateChange(rate) {
+    this.rateTmp=rate
   }
 }
 </script>
@@ -231,12 +269,30 @@ export default class OrderCard extends Vue {
         }
         .assess {
           display: flex;
+          .saveRate{
+            cursor: pointer;
+            width: 70px;
+            height: 30px;
+            background-color: darkcyan;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 4px;
+          }
           .el-rate {
             margin-top: 5px;
           }
         }
       }
       .rightCardBody {
+        position: relative;
+        .deleteImgBtn {
+          position: absolute;
+          color: #d3d3d3;
+          right: 0px;
+          top: -4px;
+          cursor: pointer;
+        }
         .avatar-uploader .el-upload {
           border: 1px dashed #d9d9d9;
           border-radius: 6px;

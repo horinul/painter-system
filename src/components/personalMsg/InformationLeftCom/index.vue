@@ -74,7 +74,6 @@
             <el-input
               type="textarea"
               v-model="order.content"
-              autosize
             ></el-input>
           </el-form-item>
         </el-form>

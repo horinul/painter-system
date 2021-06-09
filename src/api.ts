@@ -146,23 +146,55 @@ export class UserService {
     })
   }
 
-  static async uploadImage(file):Promise<HttpResponse>{
+  static async uploadImage(file,orderId):Promise<HttpResponse>{
     return Service('/file/upload',{
       method:'post',
       responseType:"json",
       data:file,
       params:{
-        module:1
+        module:1,
+        id:orderId
       },
     })
   }
   static async updateInfo(nickName, userName, passwordt): Promise<HttpResponse> {
-    return Service('usercenter/update', {
+    return Service('/usercenter/update', {
       method: 'post',
       responseType: 'json',
       data: {
         nickName, userName, passwordt
       }
+    })
+  }
+  static async deleteImage(url): Promise<HttpResponse> {
+    return Service('/file/remove', {
+      method: 'delete',
+      responseType: 'json',
+      data: {
+        url
+      }
+    })
+  }
+  static async updateOrder(title, money, limitTime, style, content,orderId): Promise<HttpResponse> {
+    return Service('/order/updateOrder', {
+      method: 'post',
+      responseType: 'json',
+      data: {
+        title, money, limitTime, style, content
+      },
+      params:{
+        orderId
+      }
+    })
+  }
+  static async changeOrderRate(orderId,rate): Promise<HttpResponse> {
+    return Service('/order/updateRate', {
+      method: 'get',
+      responseType: 'json',
+      params: {
+        orderId,
+        rate
+      },
     })
   }
 }
