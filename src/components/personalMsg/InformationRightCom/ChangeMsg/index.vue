@@ -77,16 +77,15 @@ export default class ChangeMsg extends Vue {
 .login_container {
   background-color: rgb(245, 245, 245);
   height: 100%;
+  overflow: hidden;
 }
 .login_box {
   width: 450px;
-  height: 400px;
+  padding-bottom: 20px;
   background-color: #fff;
   border-radius: 9px;
-  position: absolute;
-  left: 60%;
-  top: 33%;
-  transform: translate(-50%, -50%);
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 .avatar_box {
   height: 130px;
@@ -111,8 +110,9 @@ export default class ChangeMsg extends Vue {
   justify-content: flex-end;
 }
 .login_form {
-  position: absolute;
-  top: 30%;
+  // position: absolute;
+  // top: 30%;
+  margin-top: 20px;
   width: 100%;
   padding: 0 10px;
   box-sizing: border-box;
@@ -120,6 +120,7 @@ export default class ChangeMsg extends Vue {
 .regiser_title {
   text-align: center;
   opacity: 0.6;
+  padding-top: 20px;
 }
 .el-form {
   margin-bottom: 15px;
