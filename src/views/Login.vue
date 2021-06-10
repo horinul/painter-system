@@ -65,8 +65,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { UserService } from "@/api";
-import { identify } from "@/enums/allUserEnums";
+import { UserService } from "../api";
+import { identify } from "../enums/allUserEnums";
 
 @Component({
   components: {},

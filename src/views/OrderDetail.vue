@@ -8,7 +8,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import OrderDetailLeft from "@/components/OrderDetailCom/OrderDetailLeft/index.vue";
 import OrderDetailRight from "@/components/OrderDetailCom/OrderDetailRight/index.vue";
-import { UserService } from "@/api";
+import { UserService } from "../api";
 
 @Component({
   components: {

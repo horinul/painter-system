@@ -1,5 +1,5 @@
-import Service from '@/http'
-import { HttpResponse } from '@/types/allUserTypes'
+import Service from './http'
+import { HttpResponse } from './types/allUserTypes'
 //封装User类型的接口方法
 const token = localStorage.getItem('loginToken')
 export class UserService {

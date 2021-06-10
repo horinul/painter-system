@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { printerScheduleStatus } from "@/enums/allUserEnums";
+import { printerScheduleStatus } from "../../../enums/allUserEnums";
 
 @Component({
   components: {},

@@ -8,9 +8,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
-import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
-import { UserService } from "@/api";
-import { identify } from "@/enums/allUserEnums";
+import { wholeOrderInvite } from "../../../../../enums/orderEnums";
+import { UserService } from "../../../../../api";
+import { identify } from "../../../../../enums/allUserEnums";
 @Component({
   components: {
     OrderCard,
@@ -21,7 +21,7 @@ export default class settledOrder extends Vue {
   private identify = identify.printer;
   private listMsg = [];
   created() {
-    if (localStorage.getItem("isUser")==='true') {
+    if (localStorage.getItem("isUser") === "true") {
       this.getUserList();
     } else {
       this.getPrinterList();

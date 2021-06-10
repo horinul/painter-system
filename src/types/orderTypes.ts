@@ -1,4 +1,4 @@
-import { myOrderCurrStatus } from "@/enums/orderEnums"
+import { myOrderCurrStatus } from "../enums/orderEnums"
 // 企划邀请信息
 export interface OrderInvite {
   name: string

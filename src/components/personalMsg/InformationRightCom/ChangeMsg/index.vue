@@ -39,7 +39,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
-import { UserService } from "@/api";
+import { UserService } from "../../../../api";
 @Component({
   components: {},
 })

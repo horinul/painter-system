@@ -71,10 +71,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="企划详情">
-            <el-input
-              type="textarea"
-              v-model="order.content"
-            ></el-input>
+            <el-input type="textarea" v-model="order.content"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -88,8 +85,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import schedule from "@/components/personalMsg/InformationLeftCom/Schedule.vue";
-import { identify } from "@/enums/allUserEnums";
-import { UserService } from "@/api";
+import { UserService } from "../../../api";
 @Component({
   components: {
     schedule,

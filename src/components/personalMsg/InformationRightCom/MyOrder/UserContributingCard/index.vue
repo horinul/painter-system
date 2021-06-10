@@ -107,7 +107,7 @@
 </template>
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
-import { UserService } from "@/api";
+import { UserService } from "../../../../../api";
 import SelectPrinter from "@/components/personalMsg/InformationRightCom/MyOrder/UserContributingCard/SelectPrinter.vue";
 @Component({
   components: {
@@ -191,6 +191,7 @@ export default class UserContributingCard extends Vue {
     } else {
       this.$message.error((res.data as any).message);
     }
+    this.$router.go(0);
   }
 
   private changeSelectPrinter(printerId) {

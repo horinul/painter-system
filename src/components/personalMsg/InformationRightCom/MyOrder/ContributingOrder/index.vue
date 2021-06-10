@@ -10,8 +10,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
 import UserContributingCard from "@/components/personalMsg/InformationRightCom/MyOrder/UserContributingCard/index.vue";
-import { wholeOrderInvite } from "@/enums/orderEnums";
-import { UserService } from "@/api";
+import { wholeOrderInvite } from "../../../../../enums/orderEnums";
+import { UserService } from "../../../../../api";
 
 @Component({
   components: {

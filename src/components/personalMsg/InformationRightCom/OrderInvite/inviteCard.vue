@@ -42,8 +42,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { OrderInvite } from "@/types/orderTypes";
-import { UserService } from "@/api";
+import { OrderInvite } from "../../../../types/orderTypes";
+import { UserService } from "../../../../api";
 
 @Component({
   components: {},

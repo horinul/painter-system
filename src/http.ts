@@ -1,7 +1,6 @@
 // http.ts
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Message } from "element-ui"
-import qs from 'qs'
 
 const showStatus = (status: number) => {
   let message = ''

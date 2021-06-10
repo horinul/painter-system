@@ -8,9 +8,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import OrderCard from "@/components/personalMsg/InformationRightCom/MyOrder/OrderCard.vue";
-import { wholeOrderInvite } from "@/enums/orderEnums";
-import { UserService } from "@/api";
-import { identify } from "@/enums/allUserEnums";
+import { wholeOrderInvite } from "../../../../../enums/orderEnums";
+import { UserService } from "../../../../../api";
+import { identify } from "../../../../../enums/allUserEnums";
 
 @Component({
   components: {

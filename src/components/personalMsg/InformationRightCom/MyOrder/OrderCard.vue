@@ -70,7 +70,11 @@
                 :disabled="!isUser ? true : false"
                 @change="rateChange"
               ></el-rate>
-              <span class="saveRate" @click="saveRateChange(customer.order.id)" v-if="isUser">
+              <span
+                class="saveRate"
+                @click="saveRateChange(customer.order.id)"
+                v-if="isUser"
+              >
                 保存评分
               </span>
             </div>
@@ -107,9 +111,12 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { wholeMsg } from "@/types/orderTypes";
-import { myOrderCurrStatus, wholeOrderInvite } from "@/enums/orderEnums";
-import { UserService } from "@/api";
+import { wholeMsg } from "../../../../types/orderTypes";
+import {
+  myOrderCurrStatus,
+  wholeOrderInvite,
+} from "../../../../enums/orderEnums";
+import { UserService } from "../../../../api";
 
 @Component({
   components: {},
@@ -124,7 +131,7 @@ export default class OrderCard extends Vue {
   @Prop({ default: "", required: true })
   private orderStatus!: wholeOrderInvite; //全部订单的状态集合
 
-  private rateTmp=0
+  private rateTmp = 0;
   private async change(item) {
     let formData = new FormData();
     formData.append("file", item.file);
@@ -152,17 +159,18 @@ export default class OrderCard extends Vue {
   mounted() {
     setTimeout(() => {
       for (let i = 0; i < this.customerList.length; i++) {
+        console.info(this.customerList[1])
         if ((this.customerList[i] as any).order.state === 1) {
           (this.customerList[i] as any).order.state = "草稿";
         } else if ((this.customerList[i] as any).order.state === 2) {
           (this.customerList[i] as any).order.state = "线稿";
         } else if ((this.customerList[i] as any).order.state === 3) {
           (this.customerList[i] as any).order.state = "上色";
-        } else {
+        } else if ((this.customerList[i] as any).order.state === 4) {
           (this.customerList[i] as any).order.state = "截止";
         }
       }
-    }, 200);
+    }, 1000);
   }
 
   get isUser() {
@@ -206,8 +214,8 @@ export default class OrderCard extends Vue {
   }
 
   private saveRateChange(orderId) {
-     const res = UserService.changeOrderRate(orderId,this.rateTmp);
-    console.info(res)
+    const res = UserService.changeOrderRate(orderId, this.rateTmp);
+    console.info(res);
   }
 
   get isSettledOrder() {
@@ -223,7 +231,7 @@ export default class OrderCard extends Vue {
   }
 
   private rateChange(rate) {
-    this.rateTmp=rate
+    this.rateTmp = rate;
   }
 }
 </script>
@@ -269,7 +277,7 @@ export default class OrderCard extends Vue {
         }
         .assess {
           display: flex;
-          .saveRate{
+          .saveRate {
             cursor: pointer;
             width: 70px;
             height: 30px;
