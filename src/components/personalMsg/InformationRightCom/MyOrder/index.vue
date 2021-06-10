@@ -7,7 +7,9 @@
       mode="horizontal"
       :router="true"
     >
-      <el-menu-item index="contributingOrder" v-if="!isUser">应稿中</el-menu-item>
+      <el-menu-item index="contributingOrder" v-if="isUser"
+        >应稿中</el-menu-item
+      >
       <el-menu-item index="undoneOrder">未完成</el-menu-item>
       <el-menu-item index="settledOrder">已结算</el-menu-item>
     </el-menu>
@@ -38,8 +40,8 @@ export default class MyOrder extends Vue {
   get activeRouter() {
     return this.$route.name || "";
   }
-  private isUser(){
-    return localStorage.getItem('isUser')==='true'
+  get isUser() {
+    return localStorage.getItem("isUser") === "true";
   }
 }
 </script>
