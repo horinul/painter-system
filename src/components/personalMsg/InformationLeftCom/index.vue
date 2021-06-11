@@ -166,9 +166,7 @@ export default class InformationLeftCom extends Vue {
   }
 
   get isUser() {
-    if (localStorage.getItem("isUser") === "true") {
-      this.identifyText = "我是顾客";
-    }
+    this.identifyText = localStorage.getItem("username") || "1111";
     return localStorage.getItem("isUser") === "true";
   }
   private toRoute(item) {

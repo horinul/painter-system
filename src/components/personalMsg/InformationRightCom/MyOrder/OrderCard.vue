@@ -103,6 +103,11 @@
               />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
+            <img
+              v-if="customer.order.drawings"
+              :src="customer.order.drawings"
+              class="avatar"
+            />
           </div>
         </div>
       </el-card>
@@ -220,9 +225,13 @@ export default class OrderCard extends Vue {
     }
   }
 
-  private saveRateChange(orderId) {
-    const res = UserService.changeOrderRate(orderId, this.rateTmp);
-    console.info(res);
+  private async saveRateChange(orderId) {
+    const res = await UserService.changeOrderRate(orderId, this.rateTmp);
+    if (res.data["code"] === 20000) {
+      this.$message.success("保存成功");
+    } else {
+      this.$message.error("保存失败");
+    }
   }
 
   get isSettledOrder() {
