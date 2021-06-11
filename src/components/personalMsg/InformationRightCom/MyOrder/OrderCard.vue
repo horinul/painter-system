@@ -159,8 +159,9 @@ export default class OrderCard extends Vue {
   mounted() {
     setTimeout(() => {
       for (let i = 0; i < this.customerList.length; i++) {
-        console.info(this.customerList[1])
-        if ((this.customerList[i] as any).order.state === 1) {
+        if ((this.customerList[i] as any).order.state === 0) {
+          (this.customerList[i] as any).order.state = "未开始";
+        } else if ((this.customerList[i] as any).order.state === 1) {
           (this.customerList[i] as any).order.state = "草稿";
         } else if ((this.customerList[i] as any).order.state === 2) {
           (this.customerList[i] as any).order.state = "线稿";
@@ -189,6 +190,10 @@ export default class OrderCard extends Vue {
 
   private statusOptions = [
     {
+      value: myOrderCurrStatus.start,
+      label: "未开始",
+    },
+    {
       value: myOrderCurrStatus.draft,
       label: "草稿",
     },
@@ -208,7 +213,9 @@ export default class OrderCard extends Vue {
 
   private async changeOrderStatus(id, state) {
     let res = await UserService.printerChangeOrderStatus(id, state);
-    if (state === 4) {
+    if (state === "4" && res.data["message"] === "画稿未上传") {
+      this.$message.warning("画稿未上传，修改失败");
+    } else {
       this.$router.go(0);
     }
   }
