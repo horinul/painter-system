@@ -157,12 +157,12 @@ export class UserService {
       },
     })
   }
-  static async updateInfo(nickName, userName, passwordt): Promise<HttpResponse> {
-    return Service('/usercenter/update', {
+  static async updateInfo(nickName, userName, password, identify): Promise<HttpResponse> {
+    return Service('/usercenter/update-user', {
       method: 'post',
       responseType: 'json',
       data: {
-        nickName, userName, passwordt
+        nickName, userName, password,identify
       }
     })
   }

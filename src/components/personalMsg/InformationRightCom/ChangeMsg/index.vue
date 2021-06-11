@@ -64,8 +64,19 @@ export default class ChangeMsg extends Vue {
     let res = await UserService.updateInfo(
       this.updateForm.nickName,
       this.updateForm.userName,
-      this.updateForm.password
+      this.updateForm.password,
+      localStorage.getItem("isUser")==='true'?1:0
     );
+    let data = res.data as any;
+    if (data.code === 20001) {
+      this.$message({
+        message: data.message,
+        type: "error",
+      });
+    } else if (data.code === 20000) {
+      this.$message.success("修改成功");
+      this.resetLoginForm();
+    }
   }
   private async resetLoginForm() {
     this.$router.go(-1);

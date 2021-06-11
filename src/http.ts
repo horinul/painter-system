@@ -48,6 +48,7 @@ const service = axios.create({
   // 联调
   // baseURL: process.env.NODE_ENV === 'production' ? `/` : '/api',
   baseURL: "http://1.15.57.103:8085/",
+  // baseURL:"http://localhost:8085/",
   headers: {
     token:localStorage.getItem('loginToken'),
     get: {
