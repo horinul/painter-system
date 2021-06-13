@@ -104,7 +104,7 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
             <img
-              v-if="customer.order.drawings"
+              v-if="customer.order.drawings && isUser"
               :src="customer.order.drawings"
               class="avatar"
             />
@@ -130,11 +130,8 @@ export default class OrderCard extends Vue {
   @Prop()
   private customerList!: Array<wholeMsg>;
 
-  @Prop()
-  private msgList!: Array<object>;
-
   @Prop({ default: "", required: true })
-  private orderStatus!: wholeOrderInvite; //全部订单的状态集合
+  private orderStatus!: wholeOrderInvite;
 
   private rateTmp = 0;
   private async change(item) {
@@ -148,8 +145,12 @@ export default class OrderCard extends Vue {
     }
   }
   private async deleteUpload(url) {
-    // const res = await UserService.deleteImage(url);
-    // console.info(res);
+    const res = await UserService.deleteImage(url);
+    if (res.data["success"]) {
+      this.$router.go(0);
+    } else {
+      this.$message.error("上传失败");
+    }
   }
 
   private beforeAvatarUpload(file) {
